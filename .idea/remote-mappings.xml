@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteMappingsManager">
+    <list>
+      <list>
+        <remote-mappings server-id="python@sftp://yang@localhost:6000/home/yang/anaconda3/envs/ssl/bin/python">
+          <settings>
+            <list>
+              <mapping local-root="$PROJECT_DIR$" remote-root="/home/yang/Desktop/video_captioning" />
+            </list>
+          </settings>
+        </remote-mappings>
+        <remote-mappings server-id="python@ssh://yang@localhost:6000/home/yang/anaconda3/envs/ssl/bin/python" />
+      </list>
+    </list>
+  </component>
+</project>

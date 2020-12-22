@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="486b245b-5c1c-423c-ac9b-084c66c9fc70" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1lWxAnWkQwrJ9inemAvgFiL3OlV" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="web.server" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/models" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.train_debug">
+    <configuration name="ground" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="video_captioning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ground.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="opt" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="video_captioning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/utils" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utils/opt.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="run" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="video_captioning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/run.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="train" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="video_captioning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="train_debug" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="video_captioning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train_debug.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.train_debug" />
+        <item itemvalue="Python.train" />
+        <item itemvalue="Python.run" />
+        <item itemvalue="Python.ground" />
+        <item itemvalue="Python.opt" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="486b245b-5c1c-423c-ac9b-084c66c9fc70" name="Default Changelist" comment="" />
+      <created>1607726507666</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1607726507666</updated>
+      <workItem from="1607726510350" duration="28568000" />
+      <workItem from="1608287637932" duration="43201000" />
+      <workItem from="1608474711135" duration="1089000" />
+      <workItem from="1608476445118" duration="491000" />
+      <workItem from="1608483486477" duration="13012000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="822" y="300" width="1240" height="669" key="#Deployment" timestamp="1608475591611">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="822" y="300" key="#Deployment/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608475095464" />
+    <state x="822" y="300" width="1240" height="669" key="#Deployment/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608475591611" />
+    <state x="880" y="385" key="#Notifications" timestamp="1608474733773">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="880" y="385" key="#Notifications/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608474733773" />
+    <state x="880" y="385" key="#Options" timestamp="1608465460034">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="880" y="385" key="#Options/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608465460034" />
+    <state x="1051" y="520" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1608508999854">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="1051" y="520" key="#com.intellij.fileTypes.FileTypeChooser/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608508999854" />
+    <state x="436" y="298" width="1866" height="1142" key="#xdebugger.evaluate" timestamp="1608591470104">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="436" y="298" width="1866" height="1142" key="#xdebugger.evaluate/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608591470104" />
+    <state x="100" y="100" width="2360" height="1240" key="DirDiffDialog" timestamp="1608465348078">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state x="100" y="100" width="2360" height="1240" key="DirDiffDialog/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1608465348078" />
+    <state width="1258" height="347" key="GridCell.Tab.0.bottom" timestamp="1608645996273">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1258" height="347" key="GridCell.Tab.0.bottom/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608637382480" />
+    <state width="1258" height="347" key="GridCell.Tab.0.bottom/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608645996273" />
+    <state width="1258" height="347" key="GridCell.Tab.0.center" timestamp="1608645996271">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1258" height="347" key="GridCell.Tab.0.center/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608637382478" />
+    <state width="1258" height="347" key="GridCell.Tab.0.center/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608645996271" />
+    <state width="1258" height="347" key="GridCell.Tab.0.left" timestamp="1608645996270">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1258" height="347" key="GridCell.Tab.0.left/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608637382477" />
+    <state width="1258" height="347" key="GridCell.Tab.0.left/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608645996270" />
+    <state width="1258" height="347" key="GridCell.Tab.0.right" timestamp="1608645996272">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1258" height="347" key="GridCell.Tab.0.right/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608637382479" />
+    <state width="1258" height="347" key="GridCell.Tab.0.right/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608645996272" />
+    <state width="1258" height="337" key="GridCell.Tab.1.bottom" timestamp="1608591557190">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1258" height="337" key="GridCell.Tab.1.bottom/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608474006590" />
+    <state width="1258" height="337" key="GridCell.Tab.1.bottom/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608591557190" />
+    <state width="1258" height="337" key="GridCell.Tab.1.center" timestamp="1608591557189">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1258" height="337" key="GridCell.Tab.1.center/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608474006589" />
+    <state width="1258" height="337" key="GridCell.Tab.1.center/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608591557189" />
+    <state width="1258" height="337" key="GridCell.Tab.1.left" timestamp="1608591557188">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1258" height="337" key="GridCell.Tab.1.left/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608474006588" />
+    <state width="1258" height="337" key="GridCell.Tab.1.left/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608591557188" />
+    <state width="1258" height="337" key="GridCell.Tab.1.right" timestamp="1608591557190">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1258" height="337" key="GridCell.Tab.1.right/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608474006589" />
+    <state width="1258" height="337" key="GridCell.Tab.1.right/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608591557190" />
+    <state x="180" y="72" width="2025" height="1153" key="SettingsEditor" timestamp="1608476875933">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="180" y="72" width="2025" height="1153" key="SettingsEditor/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608476875933" />
+    <state x="180" y="72" width="1991" height="1246" key="SettingsEditor/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608476648539" />
+    <state width="1280" height="720" key="XDebugger.FullValuePopup" timestamp="1608308325462">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state width="1280" height="720" key="XDebugger.FullValuePopup/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608308325462" />
+    <state x="956" y="552" key="com.intellij.ide.util.TipDialog" timestamp="1608474711757">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="956" y="552" key="com.intellij.ide.util.TipDialog/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608474711757" />
+    <state x="613" y="597" width="1545" height="555" key="com.jetbrains.plugins.remotesdk.ui.RemoteMappingsConfiguration" timestamp="1608476817104">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="613" y="597" width="1545" height="555" key="com.jetbrains.plugins.remotesdk.ui.RemoteMappingsConfiguration/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608476817104" />
+    <state x="842" y="472" width="1096" height="555" key="com.jetbrains.plugins.remotesdk.ui.RemoteMappingsConfiguration/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608476646908" />
+    <state x="394" y="413" width="659" height="518" key="find.popup" timestamp="1608460339755">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="394" y="413" width="659" height="518" key="find.popup/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608460339755" />
+    <state x="1403" y="388" width="651" height="685" key="ftp.server.browser" timestamp="1608475019206">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="1403" y="388" width="651" height="685" key="ftp.server.browser/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608475019206" />
+    <state x="1658" y="289" width="730" height="685" key="ftp.server.browser/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608463843080" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ground.py</url>
+          <line>19</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ground.py</url>
+          <line>17</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/run.py</url>
+          <line>68</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/run.py</url>
+          <line>33</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/run.py</url>
+          <line>35</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/video_captioning$run.coverage" NAME="run Coverage Results" MODIFIED="1608402316671" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/video_captioning$train_debug.coverage" NAME="train_debug Coverage Results" MODIFIED="1608645996252" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/video_captioning$opt.coverage" NAME="opt Coverage Results" MODIFIED="1607852461261" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
+    <SUITE FILE_PATH="coverage/video_captioning$train.coverage" NAME="train Coverage Results" MODIFIED="1608476878626" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/video_captioning$ground.coverage" NAME="ground Coverage Results" MODIFIED="1608399733276" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
