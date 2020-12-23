@@ -48,10 +48,11 @@ class RunGAN:
     def train(self):
         criterion = nn.CrossEntropyLoss()
         criterion_D = nn.BCELoss()
-        optimizer = torch.optim.Adam(self.model.parameters(), lr=self.lr)
-        optimizer_D = torch.optim.Adam(self.model.parameters(), lr=self.lr)
+        optimizer = torch.optim.Adam(self.model.parameters(), lr=self.lr, betas=(0.5, 0.9))
+        optimizer_D = torch.optim.Adam(self.D.parameters(), lr=self.lr, betas=(0.5, 0.9))
 
-        lr_steps = [1,2,3,18]
+        # lr_steps = [1,2,3,18]
+        lr_steps = [1, 2]
         scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=lr_steps, gamma=0.5)
         scheduler_D = torch.optim.lr_scheduler.MultiStepLR(optimizer_D, milestones=lr_steps, gamma=0.3)
 
@@ -76,6 +77,10 @@ class RunGAN:
                 if max_len > 26:
                     max_len = 26
                 max_len = 26
+                bs = frames.shape[0]
+                seq_mask = (captions > 0).to(torch.float32)
+                att_mask = torch.matmul(seq_mask.view(bs, max_len, 1), seq_mask.view(bs, 1, max_len)).to(self.device)
+
                 frames = frames.to(self.device)
                 # batch_size * sentence_len
                 captions = captions[:, :max_len]
@@ -83,20 +88,20 @@ class RunGAN:
 
                 """ Train D """
                 mean_iteration_D_loss = 0
-                for _ in range(5):
+                for _ in range(2):
                     optimizer_D.zero_grad()
                     r_caption = self.model.decoder.caption2wordembedding(targets)
                     f_caption = self.model(frames, targets, max_len, epsilon)
                     f_caption = self.model.decoder.output2wordembedding(f_caption.detach()).detach()
 
                     # discriminator output
-                    r_logit = self.D(r_caption)
-                    f_logit = self.D(f_caption)
+                    r_logit = self.D(r_caption, att_mask)
+                    f_logit = self.D(f_caption, att_mask)
 
                     # calculate the gradient for penalty
                     epsilon_gp = torch.rand(len(r_logit), 1, 1, device=self.device, requires_grad=True)
                     mixed_captions = r_caption.detach() * epsilon_gp + f_caption.detach() * (1 - epsilon_gp)
-                    mixed_logit = self.D(mixed_captions)
+                    mixed_logit = self.D(mixed_captions, att_mask)
                     gradient_for_gp = torch.autograd.grad(
                         inputs=mixed_captions,
                         outputs=mixed_logit,
@@ -138,14 +143,14 @@ class RunGAN:
 
                 """ Loss G """
                 f_caption = self.model.decoder.output2wordembedding(tokens)
-                f_logit = self.D(f_caption)
+                f_logit = self.D(f_caption, att_mask)
                 loss_G = -f_logit.mean()
 
                 # add loss
                 loss_count += cap_loss.item()
                 loss_count_G += loss_G.item()
 
-                total_loss = cap_loss + loss_G * 0.2
+                total_loss = cap_loss + loss_G * 0.001
                 total_loss.backward()
                 # clip_gradient(optimizer, self.args.grad_clip)
                 optimizer.step()

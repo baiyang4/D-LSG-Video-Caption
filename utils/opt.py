@@ -18,7 +18,7 @@ def parse_opt():
     parser.add_argument('--train_batch_size', type=int, default=128)
     parser.add_argument('--test_batch_size', type=int, default=64)
     parser.add_argument('--beam_size', type=int, default=3)
-    parser.add_argument('--use_glove', type=bool, default=True)
+    parser.add_argument('--use_glove', type=bool, default=False)
 
     # Network settings
     parser.add_argument('--model', type=str, default='RMN')  # RMN

@@ -58,14 +58,15 @@ class SelfAttention(nn.Module):
             nn.Dropout(self.dropout)
         )
 
-    def forward(self, x):
+    def forward(self, x, att_mask=None):
         if self.get_pe:
             x = self.pe(x)
         K = self.K(x)
         Q = self.Q(x).transpose(-1, -2)
         V = self.V(x).transpose(-1, -2)
         logits = torch.div(torch.matmul(K, Q), torch.tensor(np.sqrt(self.attention_size)))
-
+        if att_mask is not None:
+            logits = logits * att_mask
         weight = F.softmax(logits, dim=-1)
         weight = weight.transpose(-1, -2)
         mid_step = torch.matmul(V, weight)

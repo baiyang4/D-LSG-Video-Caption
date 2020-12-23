@@ -176,6 +176,7 @@ class Decoder(nn.Module):
                     self.decode(word, query_lstm_h, query_lstm_c, lang_lstm_h, lang_lstm_c, global_feat, cnn_feats)
                 # teacher_forcing: a training trick
                 use_teacher_forcing = not infer and (random.random() < teacher_forcing_ratio)
+                # use_teacher_forcing = False
                 if use_teacher_forcing:
                     word_id = captions[:, i]
                 else:
