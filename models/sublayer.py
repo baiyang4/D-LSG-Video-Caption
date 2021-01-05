@@ -98,3 +98,37 @@ class PositionalEncoding_old(nn.Module):
         x = x + Variable(self.pe[:, :x.size(1)],
                          requires_grad=False)
         return self.dropout(x)
+
+class GNN(nn.Module):
+    def __init__(self):
+        super(GNN, self).__init__()
+        self.adj_Q = nn.Linear(2048,2048)
+        self.adj_K = nn.Linear(2048, 2048)
+        self.graph_update = nn.Linear(2048, 1024)
+
+    def forward(self, region_feats):
+        win_len = region_feats.size(1)
+        num_obj = region_feats.size(2)
+        bs = region_feats.size(0)
+        feature_size = region_feats.size(-1)
+        try:
+            feats = region_feats.contiguous().view(bs, win_len * num_obj, feature_size)
+        except:
+            feats = None
+            print('hehe')
+        adj_Q = self.adj_Q(feats)
+        adj_K = self.adj_K(feats).transpose(2,1)
+        adj = torch.matmul(adj_Q, adj_K)
+        adj_norm = F.softmax(adj, dim=-1)
+        region_feats_gnn = torch.matmul(adj_norm, self.graph_update(feats))
+        region_feats_gnn = region_feats_gnn.view(bs, win_len, num_obj, -1)
+        return region_feats_gnn
+
+
+class JointEmbedVideoModel2(nn.Module):
+    def __init__(self, hidden_size):
+        super(JointEmbedVideoModel2, self).__init__()
+        self.classify = nn.Linear(hidden_size, 1)
+
+    def forward(self,visual,sent):
+        return self.classify(visual * sent)

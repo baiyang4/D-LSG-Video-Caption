@@ -6,6 +6,7 @@ import os
 def parse_opt():
     # data path
     data_pth = '/mnt/CAC593A17C0101D9/DL_projects/Other_projects/video description/RMN-master/data'
+    # data_pth = './data'
     if not os.path.exists(data_pth):
         data_pth = '/home/mist/video_captioning/data'
     # data_pth = '../video description/RMN-master/data'
@@ -13,22 +14,31 @@ def parse_opt():
     parser = argparse.ArgumentParser()
     # General settings
     parser.add_argument('--dataset', type=str, default='msvd', help='choose from msvd|msr-vtt')
-    parser.add_argument('--epoch_num', type=int, default=40)
+    parser.add_argument('--epoch_num', type=int, default=60)
     parser.add_argument('--save_per_epoch', type=int, default=8)
     parser.add_argument('--train_batch_size', type=int, default=128)
-    parser.add_argument('--test_batch_size', type=int, default=64)
+    parser.add_argument('--test_batch_size', type=int, default=32)
     parser.add_argument('--beam_size', type=int, default=3)
     parser.add_argument('--use_glove', type=bool, default=False)
 
     # Network settings
     parser.add_argument('--model', type=str, default='RMN')  # RMN
     parser.add_argument('--dropout', type=float, default=0.3)
+    parser.add_argument('--use_graph', type=bool, default=True)
+    parser.add_argument('--use_visual_gan', type=bool, default=False)
+    parser.add_argument('--use_lang_gan', type=bool, default=False)
+
     parser.add_argument('--frame_hidden_size', type=int, default=1000)
     parser.add_argument('--motion_hidden_size', type=int, default=1000)
     parser.add_argument('--visual_hidden_size', type=int, default=1024)
-    parser.add_argument('--region_projected_size', type=int, default=1000)
+
+    parser.add_argument('--region_projected_size', type=int, default=1024)
     parser.add_argument('--spatial_projected_size', type=int, default=300)
+    parser.add_argument('--num_proposals', type=int, default=12)
+    parser.add_argument('--num_obj', type=int, default=18)
+
     parser.add_argument('--word_size', type=int, default=300)
+    parser.add_argument('--gan_word_size', type=int, default=512)
     parser.add_argument('--hidden_size', type=int, default=1300)
     parser.add_argument('--att_size', type=int, default=1024)
     parser.add_argument('--time_size', type=int, default=300)

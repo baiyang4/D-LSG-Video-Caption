@@ -1,5 +1,9 @@
 import os, sys
 import torch
+import pandas as pd
+import getpass
+
+SAVING_MODEL_NAME = ''
 
 class Vocabulary(object):
     def __init__(self):
@@ -47,22 +51,27 @@ def blockPrint():
 def enablePrint():
     sys.stdout = sys.__stdout__
 
+
 class ResultHandler():
     def __init__(self, model, args, is_debug=True):
         super(ResultHandler, self).__init__()
         self.model_saving = model
-        self.path = f'./models_saved/{args.dataset}/{args.dropout}_{args.use_glove}'
-        self.path_temp = '{}/temp'.format(self.path)
+        model_type = 'lstm_att'
+        if args.use_graph:
+            model_type = 'GNN'
+        self.path = f'./models_saved/{args.dataset}/{model_type}/{getpass.getuser()}'
+        self.path_results = f'./results/{args.dataset}/{model_type}/{getpass.getuser()}'
+
+        # self.path_temp = '{}/temp'.format(self.path)
         self.on = (is_debug is False)
-        self.bleu_best = 0
-        self.best_10 = []
-        if self.on:
-            self.start()
+        self.results_recorder = ResultsRecorder([5], self.path_results)
+        # if self.on:
+        self.start()
 
     def start(self):
-        os.makedirs(self.path_temp, exist_ok=True)
+        # os.makedirs(self.path_temp, exist_ok=True)
         os.makedirs(self.path, exist_ok=True)
-        self._empty_path(self.path)
+        # self._empty_path(self.path)
 
     @staticmethod
     def _empty_path(path):
@@ -84,22 +93,90 @@ class ResultHandler():
             except Exception as e:
                 print(e)
 
-    def update_result(self, metrics):
-        for k, v in metrics.items():
-            # log_value(k, v, epoch * len(saving_schedule) + count)
-            print('%s: %.6f' % (k, v))
+    def update_result(self, metrics, results, epoch=0):
+        if type(metrics) is not list:
+            metrics = [metrics]
+            results = [results]
+        should_save = self.results_recorder.update_results(metrics, results, epoch)
+        if should_save:
+            self.results_recorder.save_results(self.path_results)
+        global SAVING_MODEL_NAME
+        if len(SAVING_MODEL_NAME) > 0 and self.on:
+            torch.save(self.model_saving.state_dict(), f'{self.path}/{SAVING_MODEL_NAME}')
+            print(f'save model {SAVING_MODEL_NAME}')
+            SAVING_MODEL_NAME = ''
 
-            if k =='Bleu_4' and v > self.bleu_best:
-                self.bleu_best = v
-                # print('best result: ', self.bleu_best)
-                if self.on:
-                    self._empty_path(self.path_temp)
-                    torch.save(self.model_saving.state_dict(), f'{self.path_temp}/{v:.4f}')
-                    print(f'save model {v:.4f}')
-        print('best result: ', self.bleu_best)
+
+    def print_results(self):
+        self.results_recorder.print_results()
 
     def end_round(self):
         if self.on:
             self._move_model()
             os.rmdir(self.path_temp)
             print('best result: ', self.bleu_best)
+
+
+class DataRecorder:
+    def __init__(self, beam_size, path):
+        self.beam_size = beam_size
+        self.path = path
+        self.record_dic = {'Bleu_4': 0, 'METEOR': 0, 'CIDEr': 0, 'ROUGE_L': 0}
+        self.record_epoch_dic = {'Bleu_4': 0, 'METEOR': 0, 'CIDEr': 0, 'ROUGE_L': 0}
+
+    def update_results(self, metrics, results, epoch):
+        should_save = False
+        for k, v in metrics.items():
+            # if self.beam_size == 3:
+            print('%s: %.6f' % (k, v))
+            if k in self.record_dic:
+                current_v = self.record_dic[k]
+                if v > current_v:
+                    should_save = True
+                    if k == 'Bleu_4' or k == 'CIDEr':
+                        global SAVING_MODEL_NAME
+                        SAVING_MODEL_NAME = k
+                    self.record_dic[k] = v
+                    self.record_epoch_dic[k] = epoch
+                    results_df = pd.DataFrame(results, index=[0]).T.reset_index()
+                    results_df.columns = ['vid', 'pred']
+                    results_df[['vid']] = results_df[['vid']].astype(int)
+                    results_df.to_csv(f'{self.path}/{k}_{self.beam_size}.csv', index=False)
+        # self.print_results()
+        return should_save
+
+    def print_results(self):
+        print('--------------beam_size = ', self.beam_size)
+        for key in self.record_dic.keys():
+            print(f'{key}:{self.record_dic[key]:.3f}, epoch {self.record_epoch_dic[key]}')
+        print('--------------')
+
+
+class ResultsRecorder:
+    def __init__(self, beam_list, path):
+        self.beam_list = beam_list
+        path_captioning = f'{path}/captioning'
+        os.makedirs(path, exist_ok=True)
+        os.makedirs(path_captioning, exist_ok=True)
+        self.data_recorders = [DataRecorder(beam_size, path_captioning) for beam_size in beam_list]
+
+    def update_results(self, metrics_list, results_list, epoch):
+        should_save = False
+        for i in range(len(self.beam_list)):
+            data_recorder = self.data_recorders[i]
+            metrics = metrics_list[i]
+            results = results_list[i]
+            should_save = data_recorder.update_results(metrics, results, epoch)
+        return should_save
+
+    def save_results(self, save_path):
+        dict_list = [recorder.record_dic for recorder in self.data_recorders]
+        df = pd.DataFrame(dict_list)
+        df = df.round(4)
+        df.to_csv(f'{save_path}/metrics.csv')
+        print('results saved')
+
+    def print_results(self):
+        for data_recorder in self.data_recorders:
+            data_recorder.print_results()
+

@@ -31,11 +31,13 @@ if __name__ == "__main__":
     np.random.seed(12)
     random.seed(12)
 
-    # model_path = f'./models_saved/{args.dataset}/{args.dropout}_{args.use_glove}'
+    # # args.use_visual_gan = True
+    # args.use_lang_gan = True
+    # model_path = f'./models_saved/{args.dataset}/{args.dropout}_True/temp'
     # model_name = os.listdir(model_path)[0]
     # model_path = f'{model_path}/{model_name}'
     run = RunGAN(args, vocab, device, train_loader=train_loader, test_loader=test_loader,
-              test_reference=test_reference, is_debug=True, model_path=None)
+                 test_reference=test_reference, is_debug=True)
     with torch.backends.cudnn.flags(enabled=False):
         run.train()
 

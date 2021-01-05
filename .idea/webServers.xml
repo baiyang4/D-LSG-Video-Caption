@@ -2,14 +2,14 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="54bb8411-4a0f-405f-85cb-791b8b469ef8" name="yang@localhost:6000" url="http:///">
-        <fileTransfer host="localhost" port="6000" accessType="SFTP">
-          <option name="port" value="6000" />
-        </fileTransfer>
-      </webServer>
       <webServer id="646c9db6-8916-4255-8066-611e4d4e882a" name="mist@haroldharold.f3322.net:27000" url="http:///">
         <fileTransfer host="haroldharold.f3322.net" port="27000" accessType="SFTP">
           <option name="port" value="27000" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="54bb8411-4a0f-405f-85cb-791b8b469ef8" name="yang@localhost:6000" url="http:///">
+        <fileTransfer host="localhost" port="6000" accessType="SFTP">
+          <option name="port" value="6000" />
         </fileTransfer>
       </webServer>
     </option>
@@ -17,8 +17,8 @@
       <group>
         <name>trytry</name>
         <servers>
-          <name value="yang@localhost:6000" />
           <name value="mist@haroldharold.f3322.net:27000" />
+          <name value="yang@localhost:6000" />
         </servers>
       </group>
     </groups>

@@ -10,7 +10,7 @@ import numpy as np
 from evaluate import evaluate, convert_data_to_coco_scorer_format
 # from tensorboard_logger import configure, log_value
 # from models.BYModel import CapModel
-from models.model import CapModel
+from models.model import CapGnnModel
 
 
 class Run:
@@ -29,8 +29,10 @@ class Run:
         print(vocab_size)
         print('dropout = ', args.dropout)
         print('batch size = ', args.train_batch_size)
+        print('num_obj = ', args.num_obj)
+        print('num_proposals = ', args.num_proposals)
         # create model
-        self.model = CapModel(args, vocab).to(device)
+        self.model = CapGnnModel(args, vocab).to(device)
         if model_path is not None:
             self.model.load_state_dict(torch.load(model_path, map_location='cuda:0'))
         # parameters for training
@@ -74,8 +76,9 @@ class Run:
                 # batch_size * sentence_len
                 captions = captions[:, :max_len]
                 targets = captions.to(self.device)
+                regions = regions[:,:,:self.args.num_obj,:].to(self.device)
                 optimizer.zero_grad()
-                outputs = self.model(frames, targets, max_len, epsilon)
+                outputs, _, _ = self.model(frames, regions, targets, max_len, epsilon)
                 tokens = outputs
                 bsz = len(captions)
 
@@ -114,16 +117,24 @@ class Run:
                     blockPrint()
                     start_time_eval = time.time()
                     self.model.eval()
-                    metrics = evaluate(self.model, self.args, self.test_loader, self.test_reference)
+                    beam_list= [5]
+                    metrics_list = []
+                    results_list = []
+                    for beam_size in beam_list:
+                        self.model.update_beam_size(beam_size)
+                        metrics, results = evaluate(self.model, self.args, self.test_loader, self.test_reference, multi_modal=True)
+                        metrics_list.append(metrics)
+                        results_list.append(results)
                     end_time_eval = time.time()
                     enablePrint()
                     print('evaluate time: %.3fs' % (end_time_eval - start_time_eval))
 
-                    self.result_handler.update_result(metrics)
+                    self.result_handler.update_result(metrics_list, results_list, epoch)
                     self.model.train()
 
             end_time = time.time()
             scheduler.step()
+            self.result_handler.print_results()
             print("*******One epoch time: %.3fs*******\n" % (end_time - start_time))
         self.result_handler.end_round()
 

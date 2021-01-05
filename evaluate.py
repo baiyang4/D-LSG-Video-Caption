@@ -8,6 +8,7 @@ from utils.data import get_eval_loader
 from cocoeval import COCOScorer, suppress_stdout_stderr
 from utils.opt import parse_opt
 from tqdm import tqdm
+import collections
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -35,37 +36,46 @@ def convert_data_to_coco_scorer_format(reference):
         print("=" * 20 + "\n" + "non-ascii: " + str(non_ascii_count) + "\n" + "=" * 20)
     return reference_json
 
+# def convert_prediction_old(prediction):
+#     prediction_json = {}
+#     with open(prediction, 'r') as f:
+#         lines = f.readlines()
+#         for line in lines:
+#             vid = line.split('\t')[0]
+#             sent = line.split('\t')[1].strip()
+#             prediction_json[vid] = [{u'video_id': vid, u'caption': sent}]
+#     return prediction_json
+
 def convert_prediction(prediction):
     prediction_json = {}
-    with open(prediction, 'r') as f:
-        lines = f.readlines()
-        for line in lines:
-            vid = line.split('\t')[0]
-            sent = line.split('\t')[1].strip()
-            prediction_json[vid] = [{u'video_id': vid, u'caption': sent}]
+    for key, value in prediction.items():
+        prediction_json[str(key)] = [{u'video_id': str(key), u'caption': value}]
     return prediction_json
 
-
-def evaluate(net, opt, eval_loader, reference):
+def evaluate(net, opt, eval_loader, reference, multi_modal=False):
 
     prediction_txt_path = opt.test_prediction_txt_path
 
-    result = {}
+    result = collections.OrderedDict()
     for i, (frames, regions, spatials, video_ids) in tqdm(enumerate(eval_loader)):
         frames = frames.to(DEVICE)
         # regions = regions.to(DEVICE)
         # spatials = spatials.to(DEVICE)
+        if multi_modal:
+            regions = regions[:,:,:opt.num_obj,:].to(DEVICE)
+            outputs, _, _ = net(frames, regions, None)
+        else:
+            outputs = net(frames, None)
 
-        outputs = net(frames, None)
         for (tokens, vid) in zip(outputs, video_ids):
             s = net.decoder.decode_tokens(tokens.data)
             result[vid] = s
 
-    with open(prediction_txt_path, 'w') as f:
-        for vid, s in result.items():
-            f.write('%d\t%s\n' % (vid, s))
+    # with open(prediction_txt_path, 'w') as f:
+    #     for vid, s in result.items():
+    #         f.write('%d\t%s\n' % (vid, s))
 
-    prediction_json = convert_prediction(prediction_txt_path)
+    prediction_json = convert_prediction(result)
 
     # compute scores
     scorer = COCOScorer()
@@ -78,7 +88,7 @@ def evaluate(net, opt, eval_loader, reference):
         print('Sub Category Score in Spice:')
         for category, score in sub_category_score.items():
             print('%s: %.6f' % (category, score * 100))
-    return scores
+    return scores, result
 
 
 if __name__ == '__main__':

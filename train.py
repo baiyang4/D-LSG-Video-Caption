@@ -1,5 +1,6 @@
 import os
-from run import Run
+# from run import Run
+from run_graph import Run
 from utils.opt import parse_opt
 import torch
 import numpy as np
@@ -27,7 +28,7 @@ if __name__ == "__main__":
     test_reference = convert_data_to_coco_scorer_format(args.test_reference_txt_path)
 
     dropout_list = [0.3]
-    glove_list = [True]
+    glove_list = [False]
     for dropout_i in dropout_list:
         for glove_j in glove_list:
             args.use_glove = glove_j
@@ -36,7 +37,7 @@ if __name__ == "__main__":
             np.random.seed(12)
             random.seed(12)
             run = Run(args, vocab, device, train_loader=train_loader, test_loader=test_loader,
-                      test_reference=test_reference, is_debug=True)
+                      test_reference=test_reference, is_debug=False)
             run.train()
 
 

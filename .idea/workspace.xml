@@ -2,13 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="486b245b-5c1c-423c-ac9b-084c66c9fc70" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run_graph.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webServers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/caption-eval/cocoeval.py" beforeDir="false" afterPath="$PROJECT_DIR$/caption-eval/cocoeval.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/caption-eval/pycocoevalcap/eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/caption-eval/pycocoevalcap/eval.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/caption-eval/pycocoevalcap/tokenizer/ptbtokenizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/caption-eval/pycocoevalcap/tokenizer/ptbtokenizer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evaluate.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluate.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/layer.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/layer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/sublayer.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/sublayer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/msr-vttgumbel/msvd_test_predictions.txt" beforeDir="false" afterPath="$PROJECT_DIR$/results/msr-vttgumbel/msvd_test_predictions.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run_gun.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_gun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_debug.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_debug.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/opt.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/opt.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,16 +48,22 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="web.server" />
+    <property name="settings.editor.selected.configurable" value="MTConfigurable" />
+  </component>
+  <component name="PyCoverageOptionsProvider">
+    <option name="myUseBundledCoveragePy" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/coco_test" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/models" />
     </key>
   </component>
   <component name="RunManager" selected="Python.train_debug">
-    <configuration name="ground" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="coco_eval_example" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="video_captioning" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -54,34 +71,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/coco_test" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ground.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="opt" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="video_captioning" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/utils" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utils/opt.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/coco_test/coco_eval_example.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -112,7 +107,29 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="train" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="run_gun" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="video_captioning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/run_gun.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="train" type="PythonConfigurationType" factoryName="Python" singleton="false" temporary="true" nameIsGenerated="true">
       <module name="video_captioning" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -156,13 +173,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.run" />
+      <item itemvalue="Python.run_gun" />
+      <item itemvalue="Python.train" />
+      <item itemvalue="Python.train_debug" />
+      <item itemvalue="Python.coco_eval_example" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.train_debug" />
         <item itemvalue="Python.train" />
+        <item itemvalue="Python.coco_eval_example" />
+        <item itemvalue="Python.run_gun" />
         <item itemvalue="Python.run" />
-        <item itemvalue="Python.ground" />
-        <item itemvalue="Python.opt" />
       </list>
     </recent_temporary>
   </component>
@@ -180,7 +204,12 @@
       <workItem from="1608287637932" duration="43201000" />
       <workItem from="1608474711135" duration="1089000" />
       <workItem from="1608476445118" duration="491000" />
-      <workItem from="1608483486477" duration="26271000" />
+      <workItem from="1608483486477" duration="48080000" />
+      <workItem from="1609159414481" duration="113584000" />
+      <workItem from="1609668244166" duration="33000" />
+      <workItem from="1609668310388" duration="629000" />
+      <workItem from="1609668949493" duration="41000" />
+      <workItem from="1609669024106" duration="82652000" />
     </task>
     <servers />
   </component>
@@ -188,11 +217,11 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="822" y="300" width="1240" height="669" key="#Deployment" timestamp="1608475591611">
+    <state x="693" y="106" width="1738" height="1140" key="#Deployment" timestamp="1609851437044">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
-    <state x="822" y="300" key="#Deployment/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608475095464" />
-    <state x="822" y="300" width="1240" height="669" key="#Deployment/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608475591611" />
+    <state x="822" y="300" key="#Deployment/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609777760880" />
+    <state x="693" y="106" width="1738" height="1140" key="#Deployment/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609851437044" />
     <state x="880" y="385" key="#Notifications" timestamp="1608474733773">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
@@ -201,85 +230,113 @@
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="880" y="385" key="#Options/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608465460034" />
+    <state x="744" y="382" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1609622480752">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="744" y="382" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609622480752" />
     <state x="1051" y="520" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1608508999854">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="1051" y="520" key="#com.intellij.fileTypes.FileTypeChooser/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608508999854" />
-    <state x="320" y="298" width="1866" height="1142" key="#xdebugger.evaluate" timestamp="1608668138983">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state x="-1065" y="217" width="1046" height="1142" key="#xdebugger.evaluate" timestamp="1609881172810">
+      <screen x="-1080" y="-59" width="1080" height="1920" />
     </state>
-    <state x="320" y="298" width="1866" height="1142" key="#xdebugger.evaluate/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608668138983" />
+    <state x="-1065" y="217" width="1046" height="1142" key="#xdebugger.evaluate/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609881172810" />
+    <state x="100" y="100" width="2360" height="1240" key="DiffContextDialog" timestamp="1609516677381">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state x="100" y="100" width="2360" height="1240" key="DiffContextDialog/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1609516677381" />
     <state x="100" y="100" width="2360" height="1240" key="DirDiffDialog" timestamp="1608465348078">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
     <state x="100" y="100" width="2360" height="1240" key="DirDiffDialog/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1608465348078" />
-    <state width="1258" height="342" key="GridCell.Tab.0.bottom" timestamp="1608681196357">
+    <state width="1258" height="445" key="GridCell.Tab.0.bottom" timestamp="1609888490091">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
-    <state width="1258" height="347" key="GridCell.Tab.0.bottom/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608637382480" />
-    <state width="1258" height="342" key="GridCell.Tab.0.bottom/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608681196357" />
-    <state width="1258" height="342" key="GridCell.Tab.0.center" timestamp="1608681196355">
+    <state width="1258" height="607" key="GridCell.Tab.0.bottom/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609668231767" />
+    <state width="2516" height="645" key="GridCell.Tab.0.bottom/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1609864245011" />
+    <state width="1258" height="445" key="GridCell.Tab.0.bottom/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609888490091" />
+    <state width="1236" height="255" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1609109534171" />
+    <state width="2516" height="393" key="GridCell.Tab.0.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1609065911714" />
+    <state width="1258" height="445" key="GridCell.Tab.0.center" timestamp="1609888490089">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
-    <state width="1258" height="347" key="GridCell.Tab.0.center/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608637382478" />
-    <state width="1258" height="342" key="GridCell.Tab.0.center/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608681196355" />
-    <state width="1258" height="342" key="GridCell.Tab.0.left" timestamp="1608681196353">
+    <state width="1258" height="607" key="GridCell.Tab.0.center/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609668231764" />
+    <state width="2516" height="645" key="GridCell.Tab.0.center/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1609864245008" />
+    <state width="1258" height="445" key="GridCell.Tab.0.center/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609888490089" />
+    <state width="1236" height="255" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1609109534157" />
+    <state width="2516" height="393" key="GridCell.Tab.0.center/0.0.2560.1440@0.0.2560.1440" timestamp="1609065911713" />
+    <state width="1258" height="445" key="GridCell.Tab.0.left" timestamp="1609888490088">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
-    <state width="1258" height="347" key="GridCell.Tab.0.left/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608637382477" />
-    <state width="1258" height="342" key="GridCell.Tab.0.left/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608681196353" />
-    <state width="1258" height="342" key="GridCell.Tab.0.right" timestamp="1608681196356">
+    <state width="1258" height="607" key="GridCell.Tab.0.left/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609668231761" />
+    <state width="2516" height="645" key="GridCell.Tab.0.left/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1609864245007" />
+    <state width="1258" height="445" key="GridCell.Tab.0.left/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609888490088" />
+    <state width="1236" height="255" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1609109534149" />
+    <state width="2516" height="393" key="GridCell.Tab.0.left/0.0.2560.1440@0.0.2560.1440" timestamp="1609065911712" />
+    <state width="1258" height="445" key="GridCell.Tab.0.right" timestamp="1609888490090">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
-    <state width="1258" height="347" key="GridCell.Tab.0.right/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608637382479" />
-    <state width="1258" height="342" key="GridCell.Tab.0.right/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608681196356" />
-    <state width="1258" height="356" key="GridCell.Tab.1.bottom" timestamp="1608668141173">
+    <state width="1258" height="607" key="GridCell.Tab.0.right/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609668231765" />
+    <state width="2516" height="645" key="GridCell.Tab.0.right/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1609864245009" />
+    <state width="1258" height="445" key="GridCell.Tab.0.right/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609888490090" />
+    <state width="1236" height="255" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1609109534158" />
+    <state width="2516" height="393" key="GridCell.Tab.0.right/0.0.2560.1440@0.0.2560.1440" timestamp="1609065911714" />
+    <state width="1258" height="420" key="GridCell.Tab.1.bottom" timestamp="1609881174568">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
-    <state width="1258" height="337" key="GridCell.Tab.1.bottom/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608474006590" />
-    <state width="1258" height="356" key="GridCell.Tab.1.bottom/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608668141173" />
-    <state width="1258" height="356" key="GridCell.Tab.1.center" timestamp="1608668141172">
+    <state width="1258" height="607" key="GridCell.Tab.1.bottom/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609668231771" />
+    <state width="2516" height="420" key="GridCell.Tab.1.bottom/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1609857433390" />
+    <state width="1258" height="420" key="GridCell.Tab.1.bottom/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609881174568" />
+    <state width="1258" height="420" key="GridCell.Tab.1.center" timestamp="1609881174567">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
-    <state width="1258" height="337" key="GridCell.Tab.1.center/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608474006589" />
-    <state width="1258" height="356" key="GridCell.Tab.1.center/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608668141172" />
-    <state width="1258" height="356" key="GridCell.Tab.1.left" timestamp="1608668141171">
+    <state width="1258" height="607" key="GridCell.Tab.1.center/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609668231769" />
+    <state width="2516" height="420" key="GridCell.Tab.1.center/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1609857433389" />
+    <state width="1258" height="420" key="GridCell.Tab.1.center/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609881174567" />
+    <state width="1258" height="420" key="GridCell.Tab.1.left" timestamp="1609881174564">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
-    <state width="1258" height="337" key="GridCell.Tab.1.left/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608474006588" />
-    <state width="1258" height="356" key="GridCell.Tab.1.left/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608668141171" />
-    <state width="1258" height="356" key="GridCell.Tab.1.right" timestamp="1608668141172">
+    <state width="1258" height="607" key="GridCell.Tab.1.left/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609668231768" />
+    <state width="2516" height="420" key="GridCell.Tab.1.left/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1609857433388" />
+    <state width="1258" height="420" key="GridCell.Tab.1.left/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609881174564" />
+    <state width="1258" height="420" key="GridCell.Tab.1.right" timestamp="1609881174568">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
-    <state width="1258" height="337" key="GridCell.Tab.1.right/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608474006589" />
-    <state width="1258" height="356" key="GridCell.Tab.1.right/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608668141172" />
-    <state x="180" y="72" width="2025" height="1153" key="SettingsEditor" timestamp="1608476875933">
+    <state width="1258" height="607" key="GridCell.Tab.1.right/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609668231770" />
+    <state width="2516" height="420" key="GridCell.Tab.1.right/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1609857433389" />
+    <state width="1258" height="420" key="GridCell.Tab.1.right/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609881174568" />
+    <state x="180" y="72" width="2025" height="1153" key="SettingsEditor" timestamp="1609504773695">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="180" y="72" width="2025" height="1153" key="SettingsEditor/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608476875933" />
-    <state x="180" y="72" width="1991" height="1246" key="SettingsEditor/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608476648539" />
-    <state width="1280" height="720" key="XDebugger.FullValuePopup" timestamp="1608668136981">
+    <state x="180" y="72" width="1991" height="1246" key="SettingsEditor/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609504773695" />
+    <state width="1080" height="720" key="XDebugger.FullValuePopup" timestamp="1609861720645">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
-    <state width="1280" height="720" key="XDebugger.FullValuePopup/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608668136981" />
-    <state x="956" y="552" key="com.intellij.ide.util.TipDialog" timestamp="1608474711757">
+    <state width="1080" height="720" key="XDebugger.FullValuePopup/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609861720645" />
+    <state x="956" y="552" key="com.intellij.ide.util.TipDialog" timestamp="1609669029179">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
-    <state x="956" y="552" key="com.intellij.ide.util.TipDialog/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608474711757" />
+    <state x="956" y="552" key="com.intellij.ide.util.TipDialog/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609669029179" />
     <state x="613" y="597" width="1545" height="555" key="com.jetbrains.plugins.remotesdk.ui.RemoteMappingsConfiguration" timestamp="1608476817104">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="613" y="597" width="1545" height="555" key="com.jetbrains.plugins.remotesdk.ui.RemoteMappingsConfiguration/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608476817104" />
     <state x="842" y="472" width="1096" height="555" key="com.jetbrains.plugins.remotesdk.ui.RemoteMappingsConfiguration/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608476646908" />
-    <state x="394" y="413" width="659" height="518" key="find.popup" timestamp="1608460339755">
+    <state x="39" y="144" width="1388" height="846" key="find.popup" timestamp="1609778486696">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
-    <state x="394" y="413" width="659" height="518" key="find.popup/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608460339755" />
-    <state x="1403" y="388" width="651" height="685" key="ftp.server.browser" timestamp="1608475019206">
+    <state x="39" y="144" width="1388" height="846" key="find.popup/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609778486696" />
+    <state x="1658" y="289" width="651" height="685" key="ftp.server.browser" timestamp="1609775281663">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="1403" y="388" width="651" height="685" key="ftp.server.browser/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608475019206" />
-    <state x="1658" y="289" width="730" height="685" key="ftp.server.browser/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608463843080" />
+    <state x="1658" y="289" width="730" height="685" key="ftp.server.browser/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609775281663" />
+    <state x="945" y="331" width="670" height="676" key="search.everywhere.popup" timestamp="1608802024639">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="945" y="331" width="670" height="676" key="search.everywhere.popup/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608802024639" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -296,52 +353,135 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/run.py</url>
-          <line>68</line>
+          <line>70</line>
           <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/run.py</url>
-          <line>33</line>
+          <line>34</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/run.py</url>
-          <line>35</line>
+          <line>36</line>
           <option name="timeStamp" value="24" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/models/sublayer.py</url>
-          <line>68</line>
-          <option name="timeStamp" value="27" />
+          <url>file://$PROJECT_DIR$/utils/utils.py</url>
+          <line>145</line>
+          <option name="timeStamp" value="65" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/models/sublayer.py</url>
-          <line>69</line>
-          <option name="timeStamp" value="28" />
+          <url>file://$PROJECT_DIR$/evaluate.py</url>
+          <line>46</line>
+          <option name="timeStamp" value="71" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/models/sublayer.py</url>
-          <line>67</line>
-          <option name="timeStamp" value="29" />
+          <url>file://$PROJECT_DIR$/coco_test/coco_eval_example.py</url>
+          <line>23</line>
+          <option name="timeStamp" value="88" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/coco_test/coco_eval_example.py</url>
+          <line>11</line>
+          <option name="timeStamp" value="89" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$USER_HOME$/Library/Caches/PyCharm2019.3/remote_sources/-332329398/1024643427/pycocoevalcap/eval.py</url>
+          <line>23</line>
+          <option name="timeStamp" value="90" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/utils/utils.py</url>
+          <line>169</line>
+          <option name="timeStamp" value="96" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/run_gun.py</url>
+          <line>100</line>
+          <option name="timeStamp" value="107" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/models/model.py</url>
-          <line>53</line>
-          <option name="timeStamp" value="31" />
+          <line>183</line>
+          <option name="timeStamp" value="109" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/run_gun.py</url>
+          <line>169</line>
+          <option name="timeStamp" value="110" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/run_gun.py</url>
+          <line>141</line>
+          <option name="timeStamp" value="123" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/run_gun.py</url>
+          <line>151</line>
+          <option name="timeStamp" value="124" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/run_gun.py</url>
+          <line>134</line>
+          <option name="timeStamp" value="125" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/run_gun.py</url>
+          <line>327</line>
+          <option name="timeStamp" value="126" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/run_gun.py</url>
+          <line>108</line>
+          <option name="timeStamp" value="127" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/run_gun.py</url>
+          <line>130</line>
+          <option name="timeStamp" value="128" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/run_gun.py</url>
+          <line>136</line>
+          <option name="timeStamp" value="131" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/models/model.py</url>
-          <line>50</line>
-          <option name="timeStamp" value="32" />
+          <line>153</line>
+          <option name="timeStamp" value="134" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/run_gun.py</url>
+          <line>266</line>
+          <option name="timeStamp" value="135" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/models/model.py</url>
+          <line>154</line>
+          <option name="timeStamp" value="136" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/models/model.py</url>
+          <line>155</line>
+          <option name="timeStamp" value="137" />
         </line-breakpoint>
       </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/video_captioning$run.coverage" NAME="run Coverage Results" MODIFIED="1608402316671" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/video_captioning$train_debug.coverage" NAME="train_debug Coverage Results" MODIFIED="1608681196334" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/video_captioning$coco_eval_example.coverage" NAME="coco_eval_example Coverage Results" MODIFIED="1609669169689" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/coco_test" />
+    <SUITE FILE_PATH="coverage/video_captioning$train_debug.coverage" NAME="train_debug Coverage Results" MODIFIED="1609888490065" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/video_captioning$opt.coverage" NAME="opt Coverage Results" MODIFIED="1607852461261" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
-    <SUITE FILE_PATH="coverage/video_captioning$train.coverage" NAME="train Coverage Results" MODIFIED="1608476878626" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/video_captioning$train.coverage" NAME="train Coverage Results" MODIFIED="1609746363479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/video_captioning$ground.coverage" NAME="ground Coverage Results" MODIFIED="1608399733276" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
