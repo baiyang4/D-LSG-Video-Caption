@@ -2,24 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="486b245b-5c1c-423c-ac9b-084c66c9fc70" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run_graph.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/webServers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/caption-eval/cocoeval.py" beforeDir="false" afterPath="$PROJECT_DIR$/caption-eval/cocoeval.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/caption-eval/pycocoevalcap/eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/caption-eval/pycocoevalcap/eval.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/caption-eval/pycocoevalcap/tokenizer/ptbtokenizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/caption-eval/pycocoevalcap/tokenizer/ptbtokenizer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evaluate.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluate.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/layer.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/layer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/sublayer.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/sublayer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results/msr-vttgumbel/msvd_test_predictions.txt" beforeDir="false" afterPath="$PROJECT_DIR$/results/msr-vttgumbel/msvd_test_predictions.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run_gun.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_gun.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train_debug.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_debug.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/opt.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/opt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,7 +198,7 @@
       <workItem from="1609668244166" duration="33000" />
       <workItem from="1609668310388" duration="629000" />
       <workItem from="1609668949493" duration="41000" />
-      <workItem from="1609669024106" duration="82652000" />
+      <workItem from="1609669024106" duration="95357000" />
     </task>
     <servers />
   </component>
@@ -238,10 +227,10 @@
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="1051" y="520" key="#com.intellij.fileTypes.FileTypeChooser/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1608508999854" />
-    <state x="-1065" y="217" width="1046" height="1142" key="#xdebugger.evaluate" timestamp="1609881172810">
+    <state x="-1065" y="217" width="1046" height="1142" key="#xdebugger.evaluate" timestamp="1609937821543">
       <screen x="-1080" y="-59" width="1080" height="1920" />
     </state>
-    <state x="-1065" y="217" width="1046" height="1142" key="#xdebugger.evaluate/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609881172810" />
+    <state x="-1065" y="217" width="1046" height="1142" key="#xdebugger.evaluate/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609937821543" />
     <state x="100" y="100" width="2360" height="1240" key="DiffContextDialog" timestamp="1609516677381">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
@@ -250,62 +239,62 @@
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
     <state x="100" y="100" width="2360" height="1240" key="DirDiffDialog/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1608465348078" />
-    <state width="1258" height="445" key="GridCell.Tab.0.bottom" timestamp="1609888490091">
+    <state width="1258" height="432" key="GridCell.Tab.0.bottom" timestamp="1609939382870">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1258" height="607" key="GridCell.Tab.0.bottom/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609668231767" />
     <state width="2516" height="645" key="GridCell.Tab.0.bottom/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1609864245011" />
-    <state width="1258" height="445" key="GridCell.Tab.0.bottom/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609888490091" />
+    <state width="1258" height="432" key="GridCell.Tab.0.bottom/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609939382870" />
     <state width="1236" height="255" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1609109534171" />
     <state width="2516" height="393" key="GridCell.Tab.0.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1609065911714" />
-    <state width="1258" height="445" key="GridCell.Tab.0.center" timestamp="1609888490089">
+    <state width="1258" height="432" key="GridCell.Tab.0.center" timestamp="1609939382869">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1258" height="607" key="GridCell.Tab.0.center/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609668231764" />
     <state width="2516" height="645" key="GridCell.Tab.0.center/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1609864245008" />
-    <state width="1258" height="445" key="GridCell.Tab.0.center/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609888490089" />
+    <state width="1258" height="432" key="GridCell.Tab.0.center/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609939382869" />
     <state width="1236" height="255" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1609109534157" />
     <state width="2516" height="393" key="GridCell.Tab.0.center/0.0.2560.1440@0.0.2560.1440" timestamp="1609065911713" />
-    <state width="1258" height="445" key="GridCell.Tab.0.left" timestamp="1609888490088">
+    <state width="1258" height="432" key="GridCell.Tab.0.left" timestamp="1609939382868">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1258" height="607" key="GridCell.Tab.0.left/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609668231761" />
     <state width="2516" height="645" key="GridCell.Tab.0.left/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1609864245007" />
-    <state width="1258" height="445" key="GridCell.Tab.0.left/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609888490088" />
+    <state width="1258" height="432" key="GridCell.Tab.0.left/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609939382868" />
     <state width="1236" height="255" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1609109534149" />
     <state width="2516" height="393" key="GridCell.Tab.0.left/0.0.2560.1440@0.0.2560.1440" timestamp="1609065911712" />
-    <state width="1258" height="445" key="GridCell.Tab.0.right" timestamp="1609888490090">
+    <state width="1258" height="432" key="GridCell.Tab.0.right" timestamp="1609939382870">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1258" height="607" key="GridCell.Tab.0.right/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609668231765" />
     <state width="2516" height="645" key="GridCell.Tab.0.right/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1609864245009" />
-    <state width="1258" height="445" key="GridCell.Tab.0.right/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609888490090" />
+    <state width="1258" height="432" key="GridCell.Tab.0.right/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609939382870" />
     <state width="1236" height="255" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1609109534158" />
     <state width="2516" height="393" key="GridCell.Tab.0.right/0.0.2560.1440@0.0.2560.1440" timestamp="1609065911714" />
-    <state width="1258" height="420" key="GridCell.Tab.1.bottom" timestamp="1609881174568">
+    <state width="1258" height="420" key="GridCell.Tab.1.bottom" timestamp="1609937831422">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1258" height="607" key="GridCell.Tab.1.bottom/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609668231771" />
     <state width="2516" height="420" key="GridCell.Tab.1.bottom/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1609857433390" />
-    <state width="1258" height="420" key="GridCell.Tab.1.bottom/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609881174568" />
-    <state width="1258" height="420" key="GridCell.Tab.1.center" timestamp="1609881174567">
+    <state width="1258" height="420" key="GridCell.Tab.1.bottom/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609937831422" />
+    <state width="1258" height="420" key="GridCell.Tab.1.center" timestamp="1609937831421">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1258" height="607" key="GridCell.Tab.1.center/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609668231769" />
     <state width="2516" height="420" key="GridCell.Tab.1.center/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1609857433389" />
-    <state width="1258" height="420" key="GridCell.Tab.1.center/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609881174567" />
-    <state width="1258" height="420" key="GridCell.Tab.1.left" timestamp="1609881174564">
+    <state width="1258" height="420" key="GridCell.Tab.1.center/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609937831421" />
+    <state width="1258" height="420" key="GridCell.Tab.1.left" timestamp="1609937831420">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1258" height="607" key="GridCell.Tab.1.left/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609668231768" />
     <state width="2516" height="420" key="GridCell.Tab.1.left/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1609857433388" />
-    <state width="1258" height="420" key="GridCell.Tab.1.left/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609881174564" />
-    <state width="1258" height="420" key="GridCell.Tab.1.right" timestamp="1609881174568">
+    <state width="1258" height="420" key="GridCell.Tab.1.left/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609937831420" />
+    <state width="1258" height="420" key="GridCell.Tab.1.right" timestamp="1609937831421">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1258" height="607" key="GridCell.Tab.1.right/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609668231770" />
     <state width="2516" height="420" key="GridCell.Tab.1.right/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1609857433389" />
-    <state width="1258" height="420" key="GridCell.Tab.1.right/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609881174568" />
+    <state width="1258" height="420" key="GridCell.Tab.1.right/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609937831421" />
     <state x="180" y="72" width="2025" height="1153" key="SettingsEditor" timestamp="1609504773695">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
@@ -398,73 +387,73 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/run_gun.py</url>
-          <line>100</line>
+          <line>102</line>
           <option name="timeStamp" value="107" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/models/model.py</url>
-          <line>183</line>
-          <option name="timeStamp" value="109" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/run_gun.py</url>
-          <line>169</line>
+          <line>171</line>
           <option name="timeStamp" value="110" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/run_gun.py</url>
-          <line>141</line>
+          <line>143</line>
           <option name="timeStamp" value="123" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/run_gun.py</url>
-          <line>151</line>
+          <line>153</line>
           <option name="timeStamp" value="124" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/run_gun.py</url>
-          <line>134</line>
+          <line>136</line>
           <option name="timeStamp" value="125" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/run_gun.py</url>
-          <line>327</line>
+          <line>329</line>
           <option name="timeStamp" value="126" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/run_gun.py</url>
-          <line>108</line>
+          <line>110</line>
           <option name="timeStamp" value="127" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/run_gun.py</url>
-          <line>130</line>
+          <line>132</line>
           <option name="timeStamp" value="128" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/run_gun.py</url>
-          <line>136</line>
+          <line>138</line>
           <option name="timeStamp" value="131" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/models/model.py</url>
-          <line>153</line>
+          <line>138</line>
           <option name="timeStamp" value="134" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/run_gun.py</url>
-          <line>266</line>
+          <line>268</line>
           <option name="timeStamp" value="135" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/models/model.py</url>
-          <line>154</line>
+          <line>139</line>
           <option name="timeStamp" value="136" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/models/model.py</url>
-          <line>155</line>
+          <line>140</line>
           <option name="timeStamp" value="137" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/models/layer.py</url>
+          <line>416</line>
+          <option name="timeStamp" value="139" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -479,7 +468,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/video_captioning$run.coverage" NAME="run Coverage Results" MODIFIED="1608402316671" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/video_captioning$coco_eval_example.coverage" NAME="coco_eval_example Coverage Results" MODIFIED="1609669169689" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/coco_test" />
-    <SUITE FILE_PATH="coverage/video_captioning$train_debug.coverage" NAME="train_debug Coverage Results" MODIFIED="1609888490065" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/video_captioning$train_debug.coverage" NAME="train_debug Coverage Results" MODIFIED="1609939382846" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/video_captioning$opt.coverage" NAME="opt Coverage Results" MODIFIED="1607852461261" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/video_captioning$train.coverage" NAME="train Coverage Results" MODIFIED="1609746363479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/video_captioning$ground.coverage" NAME="ground Coverage Results" MODIFIED="1608399733276" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

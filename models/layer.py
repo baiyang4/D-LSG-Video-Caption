@@ -159,14 +159,18 @@ class Decoder(nn.Module):
         query_input_size = args.visual_hidden_size + args.word_size + args.decode_hidden_size
         if self.multi_modal:
             query_input_size += args.visual_hidden_size
+            self.psl_selector = nn.Sequential(
+                nn.Linear(args.query_hidden_size, 2),
+                nn.Softmax(dim=-1)
+            )
         self.query_lstm = nn.LSTMCell(query_input_size, args.query_hidden_size)
         self.query_lstm_layernorm = nn.LayerNorm(args.query_hidden_size)
         self.query_lstm_drop = nn.Dropout(p=args.dropout)
 
         # decoder lstm
         lang_decode_hidden_size = args.visual_hidden_size + args.query_hidden_size
-        if self.multi_modal:
-            lang_decode_hidden_size += args.visual_hidden_size
+        # if self.multi_modal:
+        #     lang_decode_hidden_size += args.visual_hidden_size
         self.lang_lstm = nn.LSTMCell(lang_decode_hidden_size, args.decode_hidden_size)
         self.lang_lstm_layernorm = nn.LayerNorm(args.decode_hidden_size)
         self.lang_lstm_drop = nn.Dropout(p=args.dropout)
@@ -407,7 +411,10 @@ class Decoder(nn.Module):
         context, alpha = self.context_att(cnn_feats, query_current)
         if self.multi_modal:
             context_2, _ = self.context_att_2(cnn_feats_2, query_current)
-            lang_input = torch.cat([context, context_2, query_current], dim=1)
+            context_lambda = self.psl_selector(query_current).unsqueeze(2)
+            context_all = torch.stack([context, context_2], dim=2)
+            context_all = torch.matmul(context_all, context_lambda).squeeze()
+            lang_input = torch.cat([context_all, query_current], dim=1)
         else:
             lang_input = torch.cat([context, query_current], dim=1)
 

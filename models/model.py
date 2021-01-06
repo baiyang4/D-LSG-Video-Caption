@@ -1,11 +1,10 @@
 from models.layer import EncoderVisual, EncoderVisualGraph, Decoder
-from models.sublayer import SelfAttention, JointEmbedVideoModel2, AttentionShare
+from models.sublayer import SelfAttention, JointEmbedVideoModel2, AttentionShare, ResBlock
 import torch.nn as nn
 import torch
 import torch.nn.functional as F
 import numpy as np
 import random
-
 
 
 class CapModel(nn.Module):
@@ -28,7 +27,7 @@ class CapGnnModel(nn.Module):
         super(CapGnnModel, self).__init__()
         self.use_visual_gan = args.use_visual_gan
         self.encoder = CapGnnEncoder(args)
-        self.decoder = Decoder(args, vocab, multi_modal=False)
+        self.decoder = Decoder(args, vocab, multi_modal=True)
 
     def forward(self, visual_feats, region_feats, caption, max_words=None, teacher_forcing_ratio=1.0):
         # frame_feats = visual_feats[:, :, :self.a_feature_size].contiguous()
@@ -109,20 +108,6 @@ class Disc(nn.Module):
         return out.squeeze()
 
 
-class ResBlock(nn.Module):
-    def __init__(self, dim):
-        super(ResBlock, self).__init__()
-        self.res_block = nn.Sequential(
-            nn.ReLU(True),
-            nn.Conv1d(dim, dim, 3, padding=1),  # nn.Linear(DIM, DIM),
-            nn.ReLU(True),
-            nn.Conv1d(dim, dim, 3, padding=1),  # nn.Linear(DIM, DIM),
-        )
-
-    def forward(self, input):
-        output = self.res_block(input)
-        return input + (0.3 * output)
-
 
 class DiscLanguage(nn.Module):
     def __init__(self, args, vocab_size):
@@ -185,12 +170,7 @@ class DiscVisual(nn.Module):
 
         num_obj = (1/adj_obj.sum(dim=-1))
         num_motion = (1/adj_motion.sum(dim=-1))
-        # if float("Inf") in num_obj:
-        #     print("no obj word")
-        # if float("Inf") in num_motion:
-        #     print("no motion word")
-        # if float("Inf") in num_obj and float("Inf") in num_motion:
-        #     print("what's wrong with you ")
+
 
         num_obj[num_obj == float("Inf")] = 0.
 
@@ -243,10 +223,3 @@ class DiscVisual2(nn.Module):
         weighted_score = self.weighted_score(text_emb)
         output = obj_score * weighted_score + motion_score * (1- weighted_score)
         return output
-
-    # def sent_encoder(self, text, text_type, pos_tags):
-    #     text_idx = (pos_tags == text_type)
-    #     text[text_idx == False] = 0
-    #     text_bow = make_one_hot_encoding(text, self.vocab_size)[:, 1:]
-    #     text_emb = self.bow_emb(text_bow)
-    #     return text_emb

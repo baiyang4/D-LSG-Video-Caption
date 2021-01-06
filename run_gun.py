@@ -24,6 +24,8 @@ class RunGAN:
         self.use_graph = args.use_graph
         self.use_visual_gan = args.use_visual_gan
         self.use_lang_gan = args.use_lang_gan
+        self.num_D_lang = args.num_D_lang
+        self.num_D_visual = args.num_D_visual
 
         vocab_size = len(vocab)
         print(vocab_size)
@@ -82,13 +84,13 @@ class RunGAN:
         loss_count_G_v = 0
         loss_count_D_v = 0
         wasserstein_v = 0
-        num_D = 2
-        num_D_v = 5
+
         saving_schedule = [int(x * total_step / self.save_per_epoch) for x in list(range(1, self.save_per_epoch + 1))]
         # saving_schedule = [20,200,300]
         print('total: ', total_step)
         print('saving_schedule: ', saving_schedule)
         gan_switch_training = self.use_lang_gan and self.use_visual_gan
+        visual_gan_lambda = torch.linspace(0.00045, 0.006, steps=self.epoch_num).to(self.device)
         for epoch in range(self.epoch_num):
             start_time = time.time()
             epsilon = max(0.6, self.ss_factor / (self.ss_factor + np.exp(epoch / self.ss_factor)))
@@ -135,7 +137,7 @@ class RunGAN:
                     object_psl = object_psl.detach()
                     motion_psl = motion_psl.detach()
                     loss_count_D_v, wasserstein_v = \
-                        self.train_disc(r_caption_v, f_caption_v, optimizer_D_v, self.D_visual, num_D_v,
+                        self.train_disc(r_caption_v, f_caption_v, optimizer_D_v, self.D_visual, self.num_D_visual,
                                         i, epoch, total_step, loss_count_D_v, wasserstein_v, obj_psl=object_psl,
                                         motion_psl=motion_psl, pos_tag=pos_tags)
 
@@ -145,7 +147,7 @@ class RunGAN:
                     f_caption = f_caption.detach()
                     r_caption = self.to_onehot(targets, self.vocab_size)
                     loss_count_D, wasserstein = \
-                        self.train_disc(r_caption, f_caption, optimizer_D, self.D_lang, num_D, i, epoch,
+                        self.train_disc(r_caption, f_caption, optimizer_D, self.D_lang, self.num_D_lang, i, epoch,
                                         total_step, loss_count_D, wasserstein, att_mask)
 
                 """ Train Captioning Model """
@@ -190,7 +192,7 @@ class RunGAN:
                     loss_G_v = -f_logit.mean()
                     loss_count_G_v += loss_G_v.item()
                     self.writer.add_scalar('Loss/G_v_loss', loss_G_v.item(), i + epoch * total_step)
-                    total_loss = total_loss + loss_G_v * 0.001
+                    total_loss = total_loss + loss_G_v * 0.0006
 
                 # total_loss = cap_loss + loss_G * 0.0012
                 total_loss.backward()

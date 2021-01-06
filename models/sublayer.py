@@ -99,6 +99,21 @@ class PositionalEncoding_old(nn.Module):
                          requires_grad=False)
         return self.dropout(x)
 
+
+class ResBlock(nn.Module):
+    def __init__(self, dim):
+        super(ResBlock, self).__init__()
+        self.res_block = nn.Sequential(
+            nn.ReLU(True),
+            nn.Conv1d(dim, dim, 3, padding=1),  # nn.Linear(DIM, DIM),
+            nn.ReLU(True),
+            nn.Conv1d(dim, dim, 3, padding=1),  # nn.Linear(DIM, DIM),
+        )
+
+    def forward(self, input):
+        output = self.res_block(input)
+        return input + (0.3 * output)
+
 class GNN(nn.Module):
     def __init__(self):
         super(GNN, self).__init__()
