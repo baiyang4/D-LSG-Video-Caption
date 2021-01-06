@@ -27,7 +27,7 @@ class CapGnnModel(nn.Module):
         super(CapGnnModel, self).__init__()
         self.use_visual_gan = args.use_visual_gan
         self.encoder = CapGnnEncoder(args)
-        self.decoder = Decoder(args, vocab, multi_modal=True)
+        self.decoder = Decoder(args, vocab, multi_modal=False)
 
     def forward(self, visual_feats, region_feats, caption, max_words=None, teacher_forcing_ratio=1.0):
         # frame_feats = visual_feats[:, :, :self.a_feature_size].contiguous()

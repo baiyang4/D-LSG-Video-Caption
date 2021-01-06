@@ -12,6 +12,14 @@
           <option name="port" value="6000" />
         </fileTransfer>
       </webServer>
+      <webServer id="90b876c8-a9ba-452d-9138-e0e8010902c0" name="3090" url="http://gpu19.mistgpu.xyz">
+        <fileTransfer host="gpu19.mistgpu.xyz" port="20301" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="20301" />
+        </fileTransfer>
+      </webServer>
     </option>
     <groups>
       <group>
@@ -19,6 +27,7 @@
         <servers>
           <name value="mist@haroldharold.f3322.net:27000" />
           <name value="yang@localhost:6000" />
+          <name value="3090" />
         </servers>
       </group>
     </groups>

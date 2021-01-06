@@ -95,8 +95,12 @@ class RunGAN:
         # saving_schedule = [20,200,300]
         print('total: ', total_step)
         print('saving_schedule: ', saving_schedule)
+
         gan_switch_training = self.use_lang_gan and self.use_visual_gan and self.num_D_switch > 0
-        visual_gan_lambda = self.get_visual_gan_lambda_schedule()
+        if self.use_visual_gan:
+            visual_gan_lambda = self.get_visual_gan_lambda_schedule()
+            print(len(visual_gan_lambda))
+            print(visual_gan_lambda)
         for epoch in range(self.epoch_num):
             start_time = time.time()
             epsilon = max(0.6, self.ss_factor / (self.ss_factor + np.exp(epoch / self.ss_factor)))
@@ -325,7 +329,7 @@ class RunGAN:
             num_repeat = self.num_D_switch
         else:
             steps /= 3
-        schedule = torch.linspace(0.0008, 0.008, steps=math.ceil(steps)).to(self.device)
+        schedule = torch.linspace(0.0005, 0.002, steps=math.ceil(steps)).to(self.device)
         schedule = schedule.repeat_interleave(num_repeat)
         return schedule
 

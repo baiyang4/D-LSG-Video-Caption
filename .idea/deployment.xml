@@ -2,6 +2,17 @@
 <project version="4">
   <component name="PublishConfigData" autoUpload="Always" serverName="trytry">
     <serverData>
+      <paths name="3090">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/mist/video_captioning" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/caption-eval" />
+            <excludedPath local="true" path="$PROJECT_DIR$/results" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
       <paths name="mist@haroldharold.f3322.net:27000">
         <serverdata>
           <mappings>

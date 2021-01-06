@@ -37,7 +37,7 @@ if __name__ == "__main__":
             np.random.seed(12)
             random.seed(12)
             run = Run(args, vocab, device, train_loader=train_loader, test_loader=test_loader,
-                      test_reference=test_reference, is_debug=False)
+                      test_reference=test_reference, is_debug=True)
             run.train()
 
 

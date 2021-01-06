@@ -2,8 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="486b245b-5c1c-423c-ac9b-084c66c9fc70" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webServers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/layer.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/layer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run_gun.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_gun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/opt.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/opt.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +52,7 @@
       <recent name="$PROJECT_DIR$/models" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.train_debug">
+  <component name="RunManager" selected="Python.train">
     <configuration name="coco_eval_example" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="video_captioning" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -166,8 +172,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.train_debug" />
         <item itemvalue="Python.train" />
+        <item itemvalue="Python.train_debug" />
         <item itemvalue="Python.coco_eval_example" />
         <item itemvalue="Python.run_gun" />
         <item itemvalue="Python.run" />
@@ -193,7 +199,7 @@
       <workItem from="1609668244166" duration="33000" />
       <workItem from="1609668310388" duration="629000" />
       <workItem from="1609668949493" duration="41000" />
-      <workItem from="1609669024106" duration="98131000" />
+      <workItem from="1609669024106" duration="106299000" />
     </task>
     <servers />
   </component>
@@ -201,11 +207,11 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="693" y="106" width="1738" height="1140" key="#Deployment" timestamp="1609851437044">
+    <state x="328" y="115" width="1738" height="1140" key="#Deployment" timestamp="1609960211513">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="822" y="300" key="#Deployment/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609777760880" />
-    <state x="693" y="106" width="1738" height="1140" key="#Deployment/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609851437044" />
+    <state x="328" y="115" width="1738" height="1140" key="#Deployment/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609960211513" />
     <state x="880" y="385" key="#Notifications" timestamp="1608474733773">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
@@ -234,36 +240,36 @@
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
     <state x="100" y="100" width="2360" height="1240" key="DirDiffDialog/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1608465348078" />
-    <state width="1258" height="369" key="GridCell.Tab.0.bottom" timestamp="1609943942821">
+    <state width="1258" height="426" key="GridCell.Tab.0.bottom" timestamp="1609961986041">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1258" height="607" key="GridCell.Tab.0.bottom/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609668231767" />
     <state width="1258" height="369" key="GridCell.Tab.0.bottom/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1609943850961" />
-    <state width="1258" height="369" key="GridCell.Tab.0.bottom/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609943942821" />
+    <state width="1258" height="426" key="GridCell.Tab.0.bottom/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609961986041" />
     <state width="1236" height="255" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1609109534171" />
     <state width="2516" height="393" key="GridCell.Tab.0.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1609065911714" />
-    <state width="1258" height="369" key="GridCell.Tab.0.center" timestamp="1609943942801">
+    <state width="1258" height="426" key="GridCell.Tab.0.center" timestamp="1609961986036">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1258" height="607" key="GridCell.Tab.0.center/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609668231764" />
     <state width="1258" height="369" key="GridCell.Tab.0.center/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1609943850960" />
-    <state width="1258" height="369" key="GridCell.Tab.0.center/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609943942801" />
+    <state width="1258" height="426" key="GridCell.Tab.0.center/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609961986036" />
     <state width="1236" height="255" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1609109534157" />
     <state width="2516" height="393" key="GridCell.Tab.0.center/0.0.2560.1440@0.0.2560.1440" timestamp="1609065911713" />
-    <state width="1258" height="369" key="GridCell.Tab.0.left" timestamp="1609943942797">
+    <state width="1258" height="426" key="GridCell.Tab.0.left" timestamp="1609961986034">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1258" height="607" key="GridCell.Tab.0.left/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609668231761" />
     <state width="1258" height="369" key="GridCell.Tab.0.left/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1609943850959" />
-    <state width="1258" height="369" key="GridCell.Tab.0.left/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609943942797" />
+    <state width="1258" height="426" key="GridCell.Tab.0.left/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609961986034" />
     <state width="1236" height="255" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1609109534149" />
     <state width="2516" height="393" key="GridCell.Tab.0.left/0.0.2560.1440@0.0.2560.1440" timestamp="1609065911712" />
-    <state width="1258" height="369" key="GridCell.Tab.0.right" timestamp="1609943942812">
+    <state width="1258" height="426" key="GridCell.Tab.0.right" timestamp="1609961986038">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="1258" height="607" key="GridCell.Tab.0.right/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1609668231765" />
     <state width="1258" height="369" key="GridCell.Tab.0.right/-1080.-36.1080.1897/0.23.2560.1417@0.23.2560.1417" timestamp="1609943850960" />
-    <state width="1258" height="369" key="GridCell.Tab.0.right/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609943942812" />
+    <state width="1258" height="426" key="GridCell.Tab.0.right/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609961986038" />
     <state width="1236" height="255" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1609109534158" />
     <state width="2516" height="393" key="GridCell.Tab.0.right/0.0.2560.1440@0.0.2560.1440" timestamp="1609065911714" />
     <state width="1258" height="420" key="GridCell.Tab.1.bottom" timestamp="1609937831422">
@@ -312,11 +318,11 @@
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="39" y="144" width="1388" height="846" key="find.popup/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609778486696" />
-    <state x="1658" y="289" width="651" height="685" key="ftp.server.browser" timestamp="1609775281663">
+    <state x="1658" y="289" width="651" height="685" key="ftp.server.browser" timestamp="1609946645044">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="1403" y="388" width="651" height="685" key="ftp.server.browser/-1080.-36.1080.1897/0.0.2560.1440@0.0.2560.1440" timestamp="1608475019206" />
-    <state x="1658" y="289" width="730" height="685" key="ftp.server.browser/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609775281663" />
+    <state x="1658" y="289" width="730" height="685" key="ftp.server.browser/-1080.-59.1080.1920/0.0.2560.1440@0.0.2560.1440" timestamp="1609946645044" />
     <state x="945" y="331" width="670" height="676" key="search.everywhere.popup" timestamp="1608802024639">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
@@ -382,32 +388,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/run_gun.py</url>
-          <line>109</line>
+          <line>113</line>
           <option name="timeStamp" value="107" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/run_gun.py</url>
-          <line>178</line>
+          <line>182</line>
           <option name="timeStamp" value="110" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/run_gun.py</url>
-          <line>139</line>
+          <line>143</line>
           <option name="timeStamp" value="123" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/run_gun.py</url>
-          <line>160</line>
+          <line>164</line>
           <option name="timeStamp" value="124" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/run_gun.py</url>
-          <line>348</line>
+          <line>352</line>
           <option name="timeStamp" value="126" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/run_gun.py</url>
-          <line>117</line>
+          <line>121</line>
           <option name="timeStamp" value="127" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -417,7 +423,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/run_gun.py</url>
-          <line>275</line>
+          <line>279</line>
           <option name="timeStamp" value="135" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -432,7 +438,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/models/layer.py</url>
-          <line>416</line>
+          <line>414</line>
           <option name="timeStamp" value="139" />
         </line-breakpoint>
       </breakpoints>
@@ -448,9 +454,9 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/video_captioning$run.coverage" NAME="run Coverage Results" MODIFIED="1608402316671" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/video_captioning$coco_eval_example.coverage" NAME="coco_eval_example Coverage Results" MODIFIED="1609669169689" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/coco_test" />
-    <SUITE FILE_PATH="coverage/video_captioning$train_debug.coverage" NAME="train_debug Coverage Results" MODIFIED="1609939382846" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/video_captioning$train_debug.coverage" NAME="train_debug Coverage Results" MODIFIED="1609961798610" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/video_captioning$opt.coverage" NAME="opt Coverage Results" MODIFIED="1607852461261" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
-    <SUITE FILE_PATH="coverage/video_captioning$train.coverage" NAME="train Coverage Results" MODIFIED="1609746363479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/video_captioning$train.coverage" NAME="train Coverage Results" MODIFIED="1609961986016" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/video_captioning$ground.coverage" NAME="ground Coverage Results" MODIFIED="1608399733276" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
