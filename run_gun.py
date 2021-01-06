@@ -26,6 +26,7 @@ class RunGAN:
         self.use_lang_gan = args.use_lang_gan
         self.num_D_lang = args.num_D_lang
         self.num_D_visual = args.num_D_visual
+        self.num_D_switch = args.num_D_switch
 
         vocab_size = len(vocab)
         print(vocab_size)
@@ -89,7 +90,7 @@ class RunGAN:
         # saving_schedule = [20,200,300]
         print('total: ', total_step)
         print('saving_schedule: ', saving_schedule)
-        gan_switch_training = self.use_lang_gan and self.use_visual_gan
+        gan_switch_training = self.use_lang_gan and self.use_visual_gan and self.num_D_switch > 0
         visual_gan_lambda = torch.linspace(0.00045, 0.006, steps=self.epoch_num).to(self.device)
         for epoch in range(self.epoch_num):
             start_time = time.time()
@@ -118,7 +119,7 @@ class RunGAN:
 
                 # visual gan, language gan, each train 5 times individually
                 if gan_switch_training:
-                    if i % 10 < 5:
+                    if i % self.num_D_switch * 2 < self.num_D_switch:
                         self.use_lang_gan = True
                         self.use_visual_gan = False
                     else:
@@ -130,6 +131,15 @@ class RunGAN:
                 else:
                     f_caption = self.model(frames, targets, max_len, epsilon)
 
+                if self.use_lang_gan:
+                    # r_caption = self.model.decoder.caption2wordembedding(targets).detach()
+                    # f_caption = self.model.decoder.output2wordembedding(f_caption.detach()).detach()
+                    f_caption = f_caption.detach()
+                    r_caption = self.to_onehot(targets, self.vocab_size)
+                    loss_count_D, wasserstein = \
+                        self.train_disc(r_caption, f_caption, optimizer_D, self.D_lang, self.num_D_lang, i, epoch,
+                                        total_step, loss_count_D, wasserstein, att_mask)
+
                 if self.use_visual_gan:
                     seq_mask = seq_mask.unsqueeze(2).to(self.device)
                     f_caption_v = f_caption.detach() * seq_mask
@@ -140,15 +150,6 @@ class RunGAN:
                         self.train_disc(r_caption_v, f_caption_v, optimizer_D_v, self.D_visual, self.num_D_visual,
                                         i, epoch, total_step, loss_count_D_v, wasserstein_v, obj_psl=object_psl,
                                         motion_psl=motion_psl, pos_tag=pos_tags)
-
-                if self.use_lang_gan:
-                    # r_caption = self.model.decoder.caption2wordembedding(targets).detach()
-                    # f_caption = self.model.decoder.output2wordembedding(f_caption.detach()).detach()
-                    f_caption = f_caption.detach()
-                    r_caption = self.to_onehot(targets, self.vocab_size)
-                    loss_count_D, wasserstein = \
-                        self.train_disc(r_caption, f_caption, optimizer_D, self.D_lang, self.num_D_lang, i, epoch,
-                                        total_step, loss_count_D, wasserstein, att_mask)
 
                 """ Train Captioning Model """
                 optimizer.zero_grad()

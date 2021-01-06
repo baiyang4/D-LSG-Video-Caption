@@ -27,6 +27,7 @@ def parse_opt():
     parser.add_argument('--use_graph', type=bool, default=True)
     parser.add_argument('--use_visual_gan', type=bool, default=True)
     parser.add_argument('--use_lang_gan', type=bool, default=False)
+    parser.add_argument('--num_D_switch', type=int, default=3)
     parser.add_argument('--num_D_lang', type=int, default=2)
     parser.add_argument('--num_D_visual', type=int, default=5)
 
