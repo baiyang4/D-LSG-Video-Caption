@@ -15,3 +15,4 @@ GAN 参数：
 2. use_lang_gan： 使用 text discriminator
 3. num_D_lang: train 一次 G， train num_D_lang 次 text discriminator
 4. num_D_visual: train 一次 G， train num_D_visual 次 conditional discriminator
+5. num_D_switch: 训练 num_D_switch 次 G 和 D_lang, 再训练 num_D_switch 次 G 和 D_visual。if num_D_switch=0， 一起训练
