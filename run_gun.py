@@ -12,6 +12,7 @@ from evaluate import evaluate, convert_data_to_coco_scorer_format
 # from models.BYModel import CapModel
 from models.model import CapModel, Disc, CapGnnModel, DiscVisual, DiscVisual2, DiscLanguage
 from torch.utils.tensorboard import SummaryWriter
+import math
 
 
 class RunGAN:
@@ -20,17 +21,21 @@ class RunGAN:
         self.train_loader = train_loader
         self.test_loader = test_loader
         self.test_reference = test_reference
-
+        print('dropout = ', args.dropout)
         self.use_graph = args.use_graph
         self.use_visual_gan = args.use_visual_gan
+        print('use_visual_gan = ', args.use_visual_gan)
         self.use_lang_gan = args.use_lang_gan
+        print('use_lang_gan = ', args.use_lang_gan)
         self.num_D_lang = args.num_D_lang
+        print('num_D_lang = ', args.num_D_lang)
         self.num_D_visual = args.num_D_visual
+        print('num_D_visual = ', args.num_D_visual)
         self.num_D_switch = args.num_D_switch
+        print('num_D_switch = ', args.num_D_switch)
 
         vocab_size = len(vocab)
         print(vocab_size)
-        print('dropout = ', args.dropout)
         print('use_graph = ', args.use_graph)
         # create model
         if self.use_graph:
@@ -91,7 +96,7 @@ class RunGAN:
         print('total: ', total_step)
         print('saving_schedule: ', saving_schedule)
         gan_switch_training = self.use_lang_gan and self.use_visual_gan and self.num_D_switch > 0
-        visual_gan_lambda = torch.linspace(0.00045, 0.006, steps=self.epoch_num).to(self.device)
+        visual_gan_lambda = self.get_visual_gan_lambda_schedule()
         for epoch in range(self.epoch_num):
             start_time = time.time()
             epsilon = max(0.6, self.ss_factor / (self.ss_factor + np.exp(epoch / self.ss_factor)))
@@ -100,6 +105,7 @@ class RunGAN:
                 print('Epoch-{0} lr language GAN: {1}'.format(epoch, optimizer_D.param_groups[0]['lr']))
             if self.use_visual_gan:
                 print('Epoch-{0} lr visual GAN: {1}'.format(epoch, optimizer_D_v.param_groups[0]['lr']))
+                print('visual gan lambda: ', visual_gan_lambda[epoch])
             for i, (frames, regions, spatials, captions, pos_tags, cap_lens, video_ids) in enumerate(self.train_loader, start=1):
                 max_len = max(cap_lens)
                 if max_len > 26:
@@ -193,7 +199,7 @@ class RunGAN:
                     loss_G_v = -f_logit.mean()
                     loss_count_G_v += loss_G_v.item()
                     self.writer.add_scalar('Loss/G_v_loss', loss_G_v.item(), i + epoch * total_step)
-                    total_loss = total_loss + loss_G_v * 0.0006
+                    total_loss = total_loss + loss_G_v * visual_gan_lambda[epoch]
 
                 # total_loss = cap_loss + loss_G * 0.0012
                 total_loss.backward()
@@ -310,6 +316,18 @@ class RunGAN:
         self.writer.add_scalar(f'Loss/D_loss_{loss_name}', mean_iteration_D_loss, i + epoch * total_step)
         self.writer.add_scalar(f'Loss/wasserstein_{loss_name}', mean_wasserstein, i + epoch * total_step)
         return loss_count_D, wasserstein
+
+    def get_visual_gan_lambda_schedule(self):
+        steps = self.epoch_num
+        num_repeat = 3
+        if self.use_visual_gan and self.use_lang_gan and self.num_D_switch > 0:
+            steps /= self.num_D_switch
+            num_repeat = self.num_D_switch
+        else:
+            steps /= 3
+        schedule = torch.linspace(0.0008, 0.008, steps=math.ceil(steps)).to(self.device)
+        schedule = schedule.repeat_interleave(num_repeat)
+        return schedule
 
     def train_generator(self, optim_G, batch_size):
         pass
