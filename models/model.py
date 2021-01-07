@@ -131,7 +131,6 @@ class DiscLanguage(nn.Module):
 
         self.att = SelfAttention(512, 512, 512, 0.5)
         self.att_norm = nn.LayerNorm(512)
-
         self.out = nn.Linear(512, 1)
 
     def forward(self, input, att_mask=None):
@@ -198,7 +197,26 @@ class DiscVisual(nn.Module):
 class DiscVisual2(nn.Module):
     def __init__(self, args, vocab_size):
         super(DiscVisual2, self).__init__()
-        self.bow_emb = nn.Linear(vocab_size, 512)
+
+        # self.bow_emb = nn.Linear(vocab_size, 512)
+
+        self.dim = args.gan_word_size
+        self.seq_len = args.max_words
+
+        self.block = nn.Sequential(
+            ResBlock(self.dim),
+        )
+
+        self.conv1d = nn.Conv1d(vocab_size, self.dim, 1)
+
+        self.lstm = nn.LSTM(args.gan_word_size, 512, batch_first=True, bidirectional=False)
+        self.layer_norm = nn.LayerNorm(512)
+        self.lstm_drop = nn.Dropout(0.3)
+
+        self.att = SelfAttention(512, 512, 512, 0.5)
+        self.att_norm = nn.LayerNorm(512)
+
+        # --------------------------
         self.obj_scorer = JointEmbedVideoModel2(512)
         self.motion_scorer = JointEmbedVideoModel2(512)
         self.attention_obj = AttentionShare(input_value_size=1024, input_key_size=512, output_size=512)
@@ -208,18 +226,33 @@ class DiscVisual2(nn.Module):
             nn.Sigmoid()
         )
 
-    def forward(self, text, pos_tags, obj_proposals, motion_proposals):
+    def forward(self, text, pos_tags, obj_proposals, motion_proposals, att_mask=None):
         # obj_embed = self.sent_encoder(text, 0, pos_tags)
         # motion_embed = self.sent_encoder(text, 1, pos_tags)
         # text_bow = make_one_hot_encoding(text, self.vocab_size)[:, 1:]
-        text = text.sum(dim=1)
-        text[:, 0] = 0
-        text_emb = self.bow_emb(text)
+        # ------old way
+        # text = text.sum(dim=1)
+        # text[:, 0] = 0
+        # text_emb = self.bow_emb(text)
+        #  -------- old way
+
+        output = text.transpose(1, 2)
+        output = self.conv1d(output)
+        output = self.block(output)
+
+        lstm_out, _ = self.lstm(output.transpose(1, 2))
+        lstm_out = self.lstm_drop(self.layer_norm(lstm_out))
+
+        att_out = self.att(lstm_out, att_mask)
+        att_out = self.att_norm(att_out)
+        # att_out = self.layer_norm_att(att_out)
+        text_emb = att_out[:, 0, :]
+
         att_obj, _ = self.attention_obj(obj_proposals, text_emb)
         att_motion, _ = self.attention_motion(motion_proposals, text_emb)
         obj_score = self.obj_scorer(att_obj, text_emb)
         motion_score = self.motion_scorer(att_motion, text_emb)
 
         weighted_score = self.weighted_score(text_emb)
-        output = obj_score * weighted_score + motion_score * (1- weighted_score)
+        output = obj_score * weighted_score + motion_score * (1 - weighted_score)
         return output

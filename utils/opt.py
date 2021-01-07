@@ -26,9 +26,9 @@ def parse_opt():
     parser.add_argument('--dropout', type=float, default=0.3)
     parser.add_argument('--use_graph', type=bool, default=True)
     parser.add_argument('--use_visual_gan', type=bool, default=False)
-    parser.add_argument('--use_lang_gan', type=bool, default=False)
+    parser.add_argument('--use_lang_gan', type=bool, default=True)
     parser.add_argument('--num_D_switch', type=int, default=3)
-    parser.add_argument('--num_D_lang', type=int, default=2)
+    parser.add_argument('--num_D_lang', type=int, default=4)
     parser.add_argument('--num_D_visual', type=int, default=5)
 
     parser.add_argument('--frame_hidden_size', type=int, default=1000)
@@ -38,7 +38,7 @@ def parse_opt():
     parser.add_argument('--region_projected_size', type=int, default=1024)
     parser.add_argument('--spatial_projected_size', type=int, default=300)
     parser.add_argument('--num_proposals', type=int, default=12)
-    parser.add_argument('--num_obj', type=int, default=18)
+    parser.add_argument('--num_obj', type=int, default=36)
 
     parser.add_argument('--word_size', type=int, default=300)
     parser.add_argument('--gan_word_size', type=int, default=512)

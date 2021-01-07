@@ -51,7 +51,7 @@ class Run:
         criterion = nn.CrossEntropyLoss()
         optimizer = torch.optim.Adam(self.model.parameters(), lr=self.lr)
         # lr_steps = [1,2,3,18]
-        lr_steps = [1, 4]
+        lr_steps = [1]
         scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=lr_steps, gamma=0.5)
         total_step = len(self.train_loader)
 
