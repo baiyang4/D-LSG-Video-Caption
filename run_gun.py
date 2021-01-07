@@ -320,7 +320,7 @@ class RunGAN:
             # update model
             mean_iteration_D_loss += loss_D.item() / num_D
             mean_wasserstein += (r_loss.item() - f_loss.item()) / num_D
-            loss_D.backward()
+            loss_D.backward(retain_graph=True)
             optimizer_D.step()
         loss_count_D += mean_iteration_D_loss
         wasserstein += mean_wasserstein
