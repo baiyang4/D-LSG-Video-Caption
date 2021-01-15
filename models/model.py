@@ -1,5 +1,5 @@
 from models.layer import EncoderVisual, EncoderVisualGraph, Decoder
-from models.sublayer import SelfAttention, JointEmbedVideoModel2, AttentionShare, ResBlock
+from models.sublayer import SelfAttention, JointEmbedVideoModel2, AttentionShare, ResBlock, LatentGNN
 import torch.nn as nn
 import torch
 import torch.nn.functional as F
@@ -15,7 +15,7 @@ class CapModel(nn.Module):
 
     def forward(self, visual_feats, caption, max_words=None, teacher_forcing_ratio=1.0):
         visual_feats_embed = self.encoder(visual_feats)
-        outputs = self.decoder(visual_feats_embed, caption, max_words, teacher_forcing_ratio)
+        outputs, _ = self.decoder(visual_feats_embed, caption, max_words, teacher_forcing_ratio)
         return outputs
 
     def update_beam_size(self, beam_size):
@@ -34,9 +34,10 @@ class CapGnnModel(nn.Module):
         # i3d_feats = visual_feats[:, :, -self.m_feature_size:].contiguous()
         obj_proposals, motion_proposals = self.encoder(visual_feats, region_feats)
         # motion_proposals = self.motion_encoder(visual_feats[:, :, -self.m_feature_size:], region_feats)
-        outputs = self.decoder(obj_proposals, caption, max_words, teacher_forcing_ratio, motion_proposals)
-
-        return outputs, obj_proposals, motion_proposals
+        outputs, alpha_all = self.decoder(obj_proposals, caption, max_words, teacher_forcing_ratio, motion_proposals)
+        if len(alpha_all) > 0:
+            alpha_all = torch.cat(alpha_all, dim=-1).transpose(1,2)
+        return outputs, obj_proposals, motion_proposals, alpha_all
 
     def update_beam_size(self, beam_size):
         self.decoder.update_beam_size(beam_size)
@@ -76,7 +77,7 @@ class Disc(nn.Module):
         self.layer_norm = nn.LayerNorm(512)
         self.lstm_drop = nn.Dropout(0.3)
 
-        self.att = SelfAttention(512, 512, 512, 0.5)
+        self.att = SelfAttention(512, 512, 512, 0.3)
         self.att_norm = nn.LayerNorm(512)
         # self.att = SelfAttention(1024, 1024, 0.2)
         # self.layer_norm_att = nn.LayerNorm(1024)
@@ -124,12 +125,12 @@ class DiscLanguage(nn.Module):
         )
 
         self.conv1d = nn.Conv1d(vocab_size, self.dim, 1)
-
+        # self.conv1d = nn.Linear(vocab_size, self.dim)
         self.lstm = nn.LSTM(args.gan_word_size, 512, batch_first=True, bidirectional=False)
         self.layer_norm = nn.LayerNorm(512)
         self.lstm_drop = nn.Dropout(0.3)
 
-        self.att = SelfAttention(512, 512, 512, 0.5)
+        self.att = SelfAttention(512, 512, 512, 0.3)
         self.att_norm = nn.LayerNorm(512)
         self.out = nn.Linear(512, 1)
 
@@ -138,8 +139,8 @@ class DiscLanguage(nn.Module):
         output = input.transpose(1, 2)
         output = self.conv1d(output)
         output = self.block(output)
-
         lstm_out, _ = self.lstm(output.transpose(1, 2))
+        # lstm_out, _ = self.lstm(output.transpose(1, 2))
         lstm_out = self.lstm_drop(self.layer_norm(lstm_out))
 
         att_out = self.att(lstm_out, att_mask)
@@ -198,7 +199,76 @@ class DiscVisual2(nn.Module):
     def __init__(self, args, vocab_size):
         super(DiscVisual2, self).__init__()
 
-        # self.bow_emb = nn.Linear(vocab_size, 512)
+        self.bow_emb = nn.Linear(vocab_size, 512)
+
+        self.dim = args.gan_word_size
+        # self.seq_len = args.max_words
+        #
+        # self.block = nn.Sequential(
+        #     ResBlock(self.dim),
+        # )
+        #
+        # self.conv1d = nn.Conv1d(vocab_size, self.dim, 1)
+        #
+        # self.visual_linear = nn.Linear(1024, 512)
+        # self.lstm = nn.LSTM(args.gan_word_size + 512, 512, batch_first=True, bidirectional=False)
+        # self.layer_norm = nn.LayerNorm(512)
+        # self.lstm_drop = nn.Dropout(0.3)
+        #
+        # self.att = SelfAttention(512, 512, 512, 0.5)
+        # self.att_norm = nn.LayerNorm(512)
+        # --------------------------
+        self.obj_scorer = JointEmbedVideoModel2(512)
+        # self.motion_scorer = JointEmbedVideoModel2(512)
+        self.attention_obj = AttentionShare(input_value_size=1024, input_key_size=512, output_size=512)
+        # self.attention_motion = AttentionShare(input_value_size=1024, input_key_size=512, output_size=512)
+        # self.weighted_score = nn.Sequential(
+        #     nn.Linear(512, 1),
+        #     nn.Sigmoid()
+        # )
+
+    def forward(self, text, pos_tags, obj_proposals, motion_proposals, att_mask=None, alpha_all=None):
+        # obj_embed = self.sent_encoder(text, 0, pos_tags)
+        # motion_embed = self.sent_encoder(text, 1, pos_tags)
+        # text_bow = make_one_hot_encoding(text, self.vocab_size)[:, 1:]
+        # ------old way
+        text = text.sum(dim=1)
+        text[:, 0] = 0
+        text_emb = self.bow_emb(text)
+        #  -------- old way
+
+        # output = text.transpose(1, 2)
+        # output = self.conv1d(output)
+        # output = self.block(output)
+        # #
+        # output_set = output.transpose(1, 2)
+        # output_visual = torch.matmul(alpha_all, torch.cat([obj_proposals, motion_proposals], dim=1))
+        # output_visual = self.visual_linear(output_visual)
+        # output_all = torch.cat([output_set, output_visual], dim=-1)
+        # lstm_out, _ = self.lstm(output_all)
+        # lstm_out = self.lstm_drop(self.layer_norm(lstm_out))
+        # #
+        # att_out = self.att(lstm_out, att_mask)
+        # att_out = self.att_norm(att_out)
+        # # att_out = self.layer_norm_att(att_out)
+        # out = att_out[:, 0, :]
+
+        obj_proposals_all = torch.cat([obj_proposals, motion_proposals], dim=1)
+        att_obj, _ = self.attention_obj(obj_proposals_all, text_emb)
+        # # att_motion, _ = self.attention_motion(motion_proposals, text_emb)
+        obj_score = self.obj_scorer(att_obj, text_emb)
+        # motion_score = self.motion_scorer(att_motion, text_emb)
+
+        # weighted_score = self.weighted_score(text_emb)
+        # output = obj_score * weighted_score + motion_score * (1 - weighted_score)
+        return obj_score
+
+
+class DiscVisual3(nn.Module):
+    def __init__(self, args, vocab_size):
+        super(DiscVisual3, self).__init__()
+
+        self.bow_emb = nn.Linear(vocab_size, 512)
 
         self.dim = args.gan_word_size
         self.seq_len = args.max_words
@@ -209,50 +279,159 @@ class DiscVisual2(nn.Module):
 
         self.conv1d = nn.Conv1d(vocab_size, self.dim, 1)
 
-        self.lstm = nn.LSTM(args.gan_word_size, 512, batch_first=True, bidirectional=False)
+        self.visual_linear = nn.Linear(1024, 512)
+        self.lstm = nn.LSTM(args.gan_word_size + 512, 512, batch_first=True, bidirectional=False)
         self.layer_norm = nn.LayerNorm(512)
         self.lstm_drop = nn.Dropout(0.3)
 
         self.att = SelfAttention(512, 512, 512, 0.5)
         self.att_norm = nn.LayerNorm(512)
 
-        # --------------------------
+        self.sent2obj = LatentGNN(512, 12, nn.LayerNorm)
+        self.sent2motion = LatentGNN(512, 12, nn.LayerNorm)
+
+        self.obj_dense = nn.Linear(1024, 512)
+        self.motion_dense = nn.Linear(1024, 512)
+
+        self.obj_out = LatentGNN(512, 1, nn.LayerNorm)
+        self.motion_out = LatentGNN(512, 1, nn.LayerNorm)
+
+        self.obj_result = nn.Linear(512, 1)
+        self.motion_result = nn.Linear(512, 1)
+
         self.obj_scorer = JointEmbedVideoModel2(512)
         self.motion_scorer = JointEmbedVideoModel2(512)
-        self.attention_obj = AttentionShare(input_value_size=1024, input_key_size=512, output_size=512)
-        self.attention_motion = AttentionShare(input_value_size=1024, input_key_size=512, output_size=512)
-        self.weighted_score = nn.Sequential(
-            nn.Linear(512, 1),
-            nn.Sigmoid()
-        )
 
-    def forward(self, text, pos_tags, obj_proposals, motion_proposals, att_mask=None):
-        # obj_embed = self.sent_encoder(text, 0, pos_tags)
-        # motion_embed = self.sent_encoder(text, 1, pos_tags)
-        # text_bow = make_one_hot_encoding(text, self.vocab_size)[:, 1:]
-        # ------old way
-        # text = text.sum(dim=1)
-        # text[:, 0] = 0
-        # text_emb = self.bow_emb(text)
-        #  -------- old way
+
+
+    def forward(self, text, pos_tags, obj_proposals, motion_proposals, att_mask=None, alpha_all=None):
 
         output = text.transpose(1, 2)
         output = self.conv1d(output)
         output = self.block(output)
-
-        lstm_out, _ = self.lstm(output.transpose(1, 2))
+        #
+        output_set = output.transpose(1, 2)
+        output_visual = torch.matmul(alpha_all, torch.cat([obj_proposals, motion_proposals], dim=1))
+        output_visual = self.visual_linear(output_visual)
+        output_all = torch.cat([output_set, output_visual], dim=-1)
+        lstm_out, _ = self.lstm(output_all)
         lstm_out = self.lstm_drop(self.layer_norm(lstm_out))
-
+        #
         att_out = self.att(lstm_out, att_mask)
         att_out = self.att_norm(att_out)
         # att_out = self.layer_norm_att(att_out)
-        text_emb = att_out[:, 0, :]
+        # print(att_mask.shape)
+        # print(att_mask[:, 0, :].shape)
+        seq_mask = att_mask[:, 0, :].unsqueeze(dim=1).repeat(1,12,1)
+        # print('seq_shape', seq_mask.shape)
 
-        att_obj, _ = self.attention_obj(obj_proposals, text_emb)
-        att_motion, _ = self.attention_motion(motion_proposals, text_emb)
-        obj_score = self.obj_scorer(att_obj, text_emb)
-        motion_score = self.motion_scorer(att_motion, text_emb)
+        obj_psl_sent = self.sent2obj(att_out, seq_mask)
+        motion_psl_sent = self.sent2motion(att_out, seq_mask)
 
-        weighted_score = self.weighted_score(text_emb)
-        output = obj_score * weighted_score + motion_score * (1 - weighted_score)
-        return output
+        obj_score = self.obj_scorer(torch.mean(obj_psl_sent, dim=1), torch.mean(self.obj_dense(obj_proposals), dim=1))
+        motion_score = self.motion_scorer(torch.mean(motion_psl_sent, dim=1), torch.mean(self.motion_dense(motion_proposals), dim=1))
+        # obj_out = self.obj_out(torch.cat([obj_psl_sent, self.obj_dense(obj_proposals)], dim=1))
+        # motion_out = self.motion_out(torch.cat([motion_psl_sent, self.motion_dense(motion_proposals)], dim=1))
+
+        # obj_result = self.obj_result(obj_out)
+        #
+        # motion_result = self.motion_result(motion_out)
+
+        return obj_score + motion_score
+        # return self.motion_result(att_out[:,0,:])
+
+
+class DiscV(nn.Module):
+    def __init__(self, opt, vocab_size):
+        super(DiscV, self).__init__()
+        self.dim = 512
+        self.seq_len = opt.max_words
+        self.num_psl = opt.num_proposals
+
+        self.block = nn.Sequential(
+            ResBlock(self.dim),
+            # ResBlock(self.dim),
+            # ResBlock(self.dim),
+            # ResBlock(self.dim),
+            # ResBlock(self.dim),
+        )
+
+        self.conv1d = nn.Conv1d(vocab_size, self.dim, 1)
+        self.lstm = nn.LSTM(512, 512, batch_first=True, bidirectional=False)
+        self.layer_norm = nn.LayerNorm(512)
+        self.lstm_drop = nn.Dropout(0.3)
+
+        self.att = SelfAttention(512, 512, 512, 0.3)
+        self.att_norm = nn.LayerNorm(512)
+        # self.att = SelfAttention(1024, 1024, 0.2)
+        # self.layer_norm_att = nn.LayerNorm(1024)
+
+        # self.out = nn.Sequential(
+        #     # self.get_discriminator_block(1024, 512),
+        #     self.get_discriminator_block(512, 256),
+        #     nn.Linear(256, 1),
+        #     # nn.Sigmoid()
+        # )
+        self.psl_embed = nn.Linear(1024, 512)
+        self.psl_norm = nn.LayerNorm(512)
+        self.psl_scorer = JointEmbedVideoModel2(512)
+        self.kl = nn.KLDivLoss()
+
+    @staticmethod
+    def get_discriminator_block(input_dim, output_dim):
+        return nn.Sequential(
+            nn.Linear(input_dim, output_dim),
+            nn.LeakyReLU(0.2)
+        )
+
+    def forward(self, inputs, pos_tags, obj_proposals, motion_proposals, att_mask=None, alpha_all=None):
+        # input shape: bs * sentence_len * word_embedding_size
+        bs = inputs.shape[0]
+        output = inputs.transpose(1, 2)
+        output = self.conv1d(output)
+        output = self.block(output)
+        att_out=output.transpose(1, 2)
+        # lstm_out, _ = self.lstm(inputs)
+        # lstm_out, _ = self.lstm(output.transpose(1, 2))
+        # lstm_out = self.lstm_drop(self.layer_norm(lstm_out))
+        #
+        # att_out = self.att(lstm_out, att_mask)
+        # att_out = self.att_norm(att_out)
+
+        psl_all = self.psl_embed(torch.cat([obj_proposals, motion_proposals], dim=1))
+
+        seq_mask = att_mask[:, 0, :].unsqueeze(dim=2).repeat(1, 1, self.num_psl*2)
+
+        alpha_all = alpha_all * seq_mask
+
+        num_top = 6
+        if self.num_psl*2 < num_top:
+            num_top = self.num_psl*2
+            psl_all_topk = psl_all
+        else:
+            psl_topk = torch.topk(alpha_all.sum(dim=1), num_top, -1)[1]
+
+            psl_topk_idx = psl_topk.repeat_interleave(512, dim=1).view(bs, num_top, -1)
+
+            psl_all_topk = torch.gather(psl_all, 1, psl_topk_idx)
+
+        adj_matrix = torch.div(torch.matmul(att_out, psl_all_topk.transpose(-1, -2)),
+                               torch.tensor(np.sqrt(512)))
+
+        seq_mask = att_mask[:, 0, :].unsqueeze(dim=2).repeat(1, 1, num_top)
+        zero_vec = -9e15 * torch.ones_like(adj_matrix)
+        adj_matrix = torch.where(seq_mask > 0, adj_matrix, zero_vec)
+
+        adj_matrix = F.softmax(adj_matrix, dim=1)
+        psl_agg = torch.matmul(att_out.transpose(-1, -2), adj_matrix).transpose(-1, -2)
+        psl_agg = self.psl_norm(psl_agg)
+
+        # kl_distance = (psl_all_topk.view(bs*num_top, -1)- psl_agg.view(bs*num_top, -1))**2
+        # print('kl1 ', kl_distance.shape)
+        # kl_distance = kl_distance.view(bs, num_top)
+        # kl_distance = kl_distance.mean(dim=-1)
+        # return -kl_distance
+        score_out = self.psl_scorer(psl_all_topk, psl_agg)
+        score_out = score_out.mean(dim=-1)
+        return score_out
+

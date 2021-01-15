@@ -63,7 +63,7 @@ def evaluate(net, opt, eval_loader, reference, multi_modal=False):
         # spatials = spatials.to(DEVICE)
         if multi_modal:
             regions = regions[:,:,:opt.num_obj,:].to(DEVICE)
-            outputs, _, _ = net(frames, regions, None)
+            outputs, _, _, _ = net(frames, regions, None)
         else:
             outputs = net(frames, None)
 

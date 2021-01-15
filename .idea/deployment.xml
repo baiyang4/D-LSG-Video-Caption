@@ -13,6 +13,18 @@
           </excludedPaths>
         </serverdata>
       </paths>
+      <paths name="3090_2">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/mist/video_captioning" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/runs" />
+            <excludedPath local="true" path="$PROJECT_DIR$/results" />
+            <excludedPath local="true" path="$PROJECT_DIR$/caption-eval" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
       <paths name="mist@haroldharold.f3322.net:27000">
         <serverdata>
           <mappings>

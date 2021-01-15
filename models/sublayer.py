@@ -66,7 +66,9 @@ class SelfAttention(nn.Module):
         V = self.V(x).transpose(-1, -2)
         logits = torch.div(torch.matmul(K, Q), torch.tensor(np.sqrt(self.attention_size)))
         if att_mask is not None:
-            logits = logits * att_mask
+            zero_vec = -9e15 * torch.ones_like(logits)
+            logits = torch.where(att_mask > 0, logits, zero_vec)
+            # logits = logits * att_mask
         weight = F.softmax(logits, dim=-1)
         weight = weight.transpose(-1, -2)
         mid_step = torch.matmul(V, weight)
@@ -106,8 +108,8 @@ class ResBlock(nn.Module):
         self.res_block = nn.Sequential(
             nn.ReLU(True),
             nn.Conv1d(dim, dim, 3, padding=1),  # nn.Linear(DIM, DIM),
-            nn.ReLU(True),
-            nn.Conv1d(dim, dim, 3, padding=1),  # nn.Linear(DIM, DIM),
+            # nn.ReLU(True),
+            # nn.Conv1d(dim, dim, 3, padding=1),  # nn.Linear(DIM, DIM),
         )
 
     def forward(self, input):
@@ -140,10 +142,41 @@ class GNN(nn.Module):
         return region_feats_gnn
 
 
+class LatentGNN(nn.Module):
+    def __init__(self, input_size, num_latent, norm_func):
+        super(LatentGNN, self).__init__()
+        self.norm_func = F.normalize
+        self.v2l_adj_conv = nn.Sequential(
+            nn.Conv2d(in_channels=input_size,
+                      out_channels=num_latent,
+                      kernel_size=1, padding=0,
+                      bias=False),
+            nn.BatchNorm2d(num_latent),
+            nn.ReLU(inplace=True)
+        )
+
+    def forward(self, input_seq, mask=None):
+        v2l_graph_adj = self.v2l_adj_conv(input_seq.permute(0, 2, 1).unsqueeze(dim=2))
+        # print(v2l_graph_adj.shape)
+        v2l_graph_adj = v2l_graph_adj.squeeze(dim=2)
+        # print(v2l_graph_adj.shape)
+
+        if mask is not None:
+            zero_vec = torch.zeros_like(v2l_graph_adj)
+            v2l_graph_adj = torch.where(mask > 0, v2l_graph_adj, zero_vec)
+        # print('v2l_graph_adj shape = ', v2l_graph_adj.shape)
+        v2l_graph_adj = self.norm_func(v2l_graph_adj, dim=2)
+
+        latent_proposals = torch.matmul(v2l_graph_adj, input_seq)
+        return latent_proposals
+
+
 class JointEmbedVideoModel2(nn.Module):
     def __init__(self, hidden_size):
         super(JointEmbedVideoModel2, self).__init__()
         self.classify = nn.Linear(hidden_size, 1)
+        self.visual_embed = nn.Linear(hidden_size, hidden_size)
+        self.sent_embed = nn.Linear(hidden_size, hidden_size)
 
     def forward(self,visual,sent):
-        return self.classify(visual * sent)
+        return self.classify(self.visual_embed(visual) * self.sent_embed(sent))

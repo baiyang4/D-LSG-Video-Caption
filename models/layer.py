@@ -84,7 +84,7 @@ class EncoderVisualGraph(nn.Module):
         self.att_v2v = EncoderVisual(args, input_type, embed=False)
         self.pe_v2v = PositionalEncoding_old(args.visual_hidden_size)
 
-        self.att_l2l = SelfAttention(args.visual_hidden_size,args.visual_hidden_size,args.visual_hidden_size)
+        self.att_l2l = SelfAttention(args.visual_hidden_size,args.visual_hidden_size,args.visual_hidden_size, dropout=args.dropout)
         self.att_l2l_norm = nn.LayerNorm(args.visual_hidden_size)
         self.norm_func=F.normalize
 
@@ -116,6 +116,7 @@ class EncoderVisualGraph(nn.Module):
 
         v2l_graph_adj = self.norm_func(v2l_graph_adj.squeeze(), dim=2)
         latent_proposals = torch.matmul(v2l_graph_adj, obj_visual)
+        latent_proposals = self.att_l2l_norm(latent_proposals)
         # ----------------------------------------------
         # Step4 : Latent proposals => Latent proposals
         # ----------------------------------------------
@@ -257,10 +258,11 @@ class Decoder(nn.Module):
         word = self.word_drop(word)
 
         outputs = []
+        alpha_all = []
         if not infer or self.beam_size == 1:
             for i in range(max_words):
                 # lstm input: word + h_(t-1) + context
-                word_logits, query_lstm_h, query_lstm_c, lang_lstm_h, lang_lstm_c =\
+                word_logits, query_lstm_h, query_lstm_c, lang_lstm_h, lang_lstm_c, alpha =\
                     self.decode(word, query_lstm_h, query_lstm_c, lang_lstm_h, lang_lstm_c, global_feat, cnn_feats, cnn_feats_2)
                 # teacher_forcing: a training trick
                 use_teacher_forcing = not infer and (random.random() < teacher_forcing_ratio)
@@ -276,6 +278,7 @@ class Decoder(nn.Module):
                     outputs.append(word_id)
                 else:
                     outputs.append(word_logits)
+                    alpha_all.append(alpha)
 
             outputs = torch.stack(outputs, dim=1)
 
@@ -292,7 +295,7 @@ class Decoder(nn.Module):
                 outputs.append(predictions[i, max_index[i], :])
             outputs = torch.stack(outputs)
 
-        return outputs
+        return outputs, alpha_all
 
     def decode_tokens(self, tokens):
         '''
@@ -367,7 +370,7 @@ class Decoder(nn.Module):
             word_id = last_predictions.reshape(batch_size, -1)[:, i]
             word = self.word_embed(word_id)
 
-            word_logits, query_lstm_h, query_lstm_c, lang_lstm_h, lang_lstm_c = \
+            word_logits, query_lstm_h, query_lstm_c, lang_lstm_h, lang_lstm_c, _ = \
                 self.decode(word, query_lstm_h, query_lstm_c, lang_lstm_h, lang_lstm_c, global_feat, cnn_feats, cnn_feats_2)
 
             log_prob = F.log_softmax(word_logits, dim=1)  # b*v
@@ -423,4 +426,4 @@ class Decoder(nn.Module):
         decoder_output = torch.tanh(self.lang_lstm_layernorm(lang_h))
         word_logits = self.word_restore(decoder_output)
 
-        return word_logits, query_h, query_c, lang_h, lang_c
+        return word_logits, query_h, query_c, lang_h, lang_c, alpha

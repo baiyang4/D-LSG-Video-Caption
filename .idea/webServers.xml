@@ -20,6 +20,14 @@
           <option name="port" value="20301" />
         </fileTransfer>
       </webServer>
+      <webServer id="aef0c923-6023-4cdd-bd86-80d547300313" name="3090_2" url="http://ygg.mistgpu.xyz">
+        <fileTransfer host="ygg.mistgpu.xyz" port="61590" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="61590" />
+        </fileTransfer>
+      </webServer>
     </option>
     <groups>
       <group>
@@ -28,6 +36,7 @@
           <name value="mist@haroldharold.f3322.net:27000" />
           <name value="yang@localhost:6000" />
           <name value="3090" />
+          <name value="3090_2" />
         </servers>
       </group>
     </groups>

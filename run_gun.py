@@ -1,16 +1,12 @@
-import shutil
+
 import time
 from utils.utils import *
-from utils.data import get_train_loader, get_eval_loader
-# from utils.opt import parse_opt
-# import random
+
 import torch
 import torch.nn as nn
 import numpy as np
 from evaluate import evaluate, convert_data_to_coco_scorer_format
-# from tensorboard_logger import configure, log_value
-# from models.BYModel import CapModel
-from models.model import CapModel, Disc, CapGnnModel, DiscVisual, DiscVisual2, DiscLanguage
+from models.model import Disc, CapGnnModel, DiscV
 from torch.utils.tensorboard import SummaryWriter
 import math
 
@@ -23,14 +19,9 @@ class RunGAN:
         self.test_reference = test_reference
         print('dropout = ', args.dropout)
         self.use_graph = args.use_graph
-        self.use_visual_gan = args.use_visual_gan
-        print('use_visual_gan = ', args.use_visual_gan)
-        self.use_lang_gan = args.use_lang_gan
-        print('use_lang_gan = ', args.use_lang_gan)
-        self.num_D_lang = args.num_D_lang
-        print('num_D_lang = ', args.num_D_lang)
-        self.num_D_visual = args.num_D_visual
-        print('num_D_visual = ', args.num_D_visual)
+
+        self.base_name = self.get_trainer_name(args)
+
         self.num_D_switch = args.num_D_switch
         print('num_D_switch = ', args.num_D_switch)
 
@@ -38,13 +29,9 @@ class RunGAN:
         print(vocab_size)
         print('use_graph = ', args.use_graph)
 
-        print('num_obj = ', args.num_obj)
-        print('num_proposals = ', args.num_proposals)
         # create model
-        if self.use_graph:
-            self.model = CapGnnModel(args, vocab).to(device)
-        else:
-            self.model = CapModel(args, vocab).to(device)
+
+        self.model = CapGnnModel(args, vocab).to(device)
 
         if model_path is not None:
             # model = CapGnnModel(args, vocab).to(device)
@@ -52,9 +39,11 @@ class RunGAN:
             self.model.load_encoder(CapGnnModel(args, vocab).to(device), model_path)
         # parameters for training
         if self.use_lang_gan:
-            self.D_lang = DiscLanguage(args, vocab_size).to(device)
+            # self.D_lang = DiscLanguage(args, vocab_size).to(device)
+            self.D_lang = Disc(args).to(device)
         if self.use_visual_gan:
-            self.D_visual = DiscVisual2(args, vocab_size).to(device)
+            self.D_visual = DiscV(args, vocab_size).to(device)
+
         self.args = args
         self.lr = args.learning_rate
         self.epoch_num = args.epoch_num
@@ -64,12 +53,13 @@ class RunGAN:
         self.save_per_epoch = args.save_per_epoch
         self.vocab_size = vocab_size
         self.ss_factor = args.ss_factor
-        self.result_handler = ResultHandler(self.model, args, is_debug=is_debug)
-        self.writer = SummaryWriter()
+        self.result_handler = ResultHandler(self.model, self.base_name, is_debug=is_debug)
+        self.writer = SummaryWriter(comment=self.base_name)
 
     def train(self):
         criterion = nn.CrossEntropyLoss()
         optimizer = torch.optim.Adam(self.model.parameters(), lr=self.lr, betas=(0.5, 0.9))
+        # optimizer = torch.optim.Adam(self.model.parameters(), lr=self.lr)
         # lr_steps = [1,2,3,18]
         # lr_steps = [1, 4]
         lr_steps = [1, 4]
@@ -83,7 +73,7 @@ class RunGAN:
         if self.use_visual_gan:
             lr_steps_D_v = [1, 4]
             optimizer_D_v = torch.optim.Adam(self.D_visual.parameters(), lr=self.lr, betas=(0.5, 0.9))
-            scheduler_D_v = torch.optim.lr_scheduler.MultiStepLR(optimizer_D_v, milestones=lr_steps_D_v, gamma=0.6)
+            scheduler_D_v = torch.optim.lr_scheduler.MultiStepLR(optimizer_D_v, milestones=lr_steps_D_v, gamma=0.5)
         total_step = len(self.train_loader)
 
         loss_count = 0
@@ -94,10 +84,12 @@ class RunGAN:
         loss_count_D_v = 0
         wasserstein_v = 0
 
-        saving_schedule = [int(x * total_step / 8) for x in list(range(1, 8 + 1))]
+        saving_schedule_small = [int(x * total_step / 2) for x in list(range(1, 2 + 1))]
+        saving_schedule_mid = [int(x * total_step / 8) for x in list(range(1, 8 + 1))]
+        saving_schedule_high = [int(x * total_step / 16) for x in list(range(1, 16 + 1))]
         # saving_schedule = [20,200,300]
         print('total: ', total_step)
-        print('saving_schedule: ', saving_schedule)
+        # print('saving_schedule: ', saving_schedule)
 
         gan_switch_training = self.use_lang_gan and self.use_visual_gan and self.num_D_switch > 0
         if self.use_visual_gan:
@@ -120,13 +112,9 @@ class RunGAN:
                 print('Epoch-{0} lr visual GAN: {1}'.format(epoch, optimizer_D_v.param_groups[0]['lr']))
                 print('visual gan lambda: ', visual_gan_lambda[epoch])
             for i, (frames, regions, spatials, captions, pos_tags, cap_lens, video_ids) in enumerate(self.train_loader, start=1):
-                max_len = max(cap_lens)
-                if max_len > 26:
-                    max_len = 26
+
                 max_len = 26
                 bs = frames.shape[0]
-                seq_mask = (captions > 0).to(torch.float32)
-                att_mask = torch.matmul(seq_mask.view(bs, max_len, 1), seq_mask.view(bs, 1, max_len)).to(self.device)
 
                 frames = frames.to(self.device)
                 # batch_size * sentence_len
@@ -146,36 +134,37 @@ class RunGAN:
                         self.use_visual_gan = True
                 """ Train D """
                 if self.use_lang_gan or self.use_visual_gan:
-                    f_caption, object_psl, motion_psl = self.model(frames, regions, targets, max_len, epsilon)
+
+                    seq_mask = (captions > 0).to(torch.float32)
+                    att_mask = torch.matmul(seq_mask.view(bs, max_len, 1), seq_mask.view(bs, 1, max_len)).to(
+                        self.device)
+                    f_caption, object_psl, motion_psl, alpha_all = self.model(frames, regions, targets, max_len, epsilon)
 
                 if self.use_lang_gan:
-                    # r_caption = self.model.decoder.caption2wordembedding(targets).detach()
-                    # f_caption = self.model.decoder.output2wordembedding(f_caption.detach()).detach()
-                    f_caption = f_caption.detach()
-                    r_caption = self.to_onehot(targets, self.vocab_size)
+
+                    r_caption = self.model.decoder.caption2wordembedding(targets).detach()
+                    f_caption = self.model.decoder.output2wordembedding(f_caption.detach()).detach()
+                    # f_caption = f_caption.detach()
+                    # r_caption = self.to_onehot(targets, self.vocab_size)
                     loss_count_D, wasserstein = \
                         self.train_disc(r_caption, f_caption, optimizer_D, self.D_lang, self.num_D_lang, i, epoch,
                                         total_step, loss_count_D, wasserstein, att_mask)
 
                 if self.use_visual_gan:
-                    self.writer.add_scalar('parameters/lambda_V', visual_gan_lambda[epoch], i + epoch * total_step)
-                    seq_mask = seq_mask.unsqueeze(2).to(self.device)
-                    f_caption_v = f_caption.detach() * seq_mask
+                    f_caption_v = f_caption.detach()
                     r_caption_v = self.to_onehot(targets, self.vocab_size)
                     object_psl = object_psl.detach()
                     motion_psl = motion_psl.detach()
+                    alpha_all = alpha_all.detach()
                     loss_count_D_v, wasserstein_v = \
                         self.train_disc(r_caption_v, f_caption_v, optimizer_D_v, self.D_visual, self.num_D_visual,
                                         i, epoch, total_step, loss_count_D_v, wasserstein_v, obj_psl=object_psl,
-                                        motion_psl=motion_psl, pos_tag=pos_tags, att_mask=att_mask)
+                                        motion_psl=motion_psl, pos_tag=pos_tags, att_mask=att_mask, alpha_all=alpha_all)
 
                 """ Train Captioning Model """
                 optimizer.zero_grad()
-                if self.use_graph:
-                    outputs, object_psl, motion_psl = self.model(frames, regions, targets, max_len, epsilon)
-                else:
-                    outputs = self.model(frames, targets, max_len, epsilon)
-                # outputs = self.model(frames, targets, max_len, epsilon)
+
+                outputs, object_psl, motion_psl, alpha_all = self.model(frames, regions, targets, max_len, epsilon)
                 tokens = outputs
                 bsz = len(captions)
 
@@ -189,37 +178,41 @@ class RunGAN:
 
                 # compute captioning loss
                 cap_loss = criterion(outputs, targets)
+                total_loss = cap_loss
+
                 loss_count += cap_loss.item()
                 self.writer.add_scalar('Loss/cap_loss', cap_loss.item(), i + epoch * total_step)
-                total_loss = cap_loss
+
                 """ Loss G """
 
                 if self.use_lang_gan:
-                    # f_caption = self.model.decoder.output2wordembedding(tokens)
-                    f_logit = self.D_lang(tokens, att_mask)
+                    f_caption = self.model.decoder.output2wordembedding(tokens)
+                    f_logit = self.D_lang(f_caption, att_mask)
                     loss_G = -f_logit.mean()
                     loss_count_G += loss_G.item()
                     self.writer.add_scalar('Loss/G_loss', loss_G.item(), i + epoch * total_step)
-                    total_loss = total_loss + loss_G * 0.008
+                    total_loss = total_loss + loss_G * self.lambda_D_lang
 
                 if self.use_visual_gan:
                     # f_caption = tokens * seq_mask
+                    # f_caption = self.model.decoder.output2wordembedding(tokens)
                     object_psl = object_psl.detach()
                     motion_psl = motion_psl.detach()
-
-                    f_logit = self.D_visual(tokens, pos_tags, object_psl, motion_psl, att_mask=att_mask)
+                    alpha_all = alpha_all.detach()
+                    f_logit = self.D_visual(tokens, pos_tags, object_psl, motion_psl, att_mask=att_mask, alpha_all=alpha_all)
                     loss_G_v = -f_logit.mean()
                     loss_count_G_v += loss_G_v.item()
                     self.writer.add_scalar('Loss/G_v_loss', loss_G_v.item(), i + epoch * total_step)
-                    total_loss = total_loss + loss_G_v * visual_gan_lambda[epoch]
+                    # total_loss = total_loss + loss_G_v * 0.0006
+                    total_loss = total_loss + loss_G_v * self.lambda_D_visual
 
-                # total_loss = cap_loss + loss_G * 0.0012
                 total_loss.backward()
-                # clip_gradient(optimizer, self.args.grad_clip)
+                # scaler.scale(total_loss).backward()
+                # scaler.step(optimizer)
                 optimizer.step()
-
+                # scaler.update()
                 if i % 10 == 0 or bsz < self.train_batch_size:
-                    loss_count /= 10 if bsz == self.train_batch_size else i % 10
+                    loss_count /= 10. if bsz == self.train_batch_size else i % 10
                     results_string = f'Epoch [{epoch}/{self.epoch_num}], Step [{i}/{total_step}], Loss: {loss_count:.4f}, Perplexity: {np.exp(loss_count):.4f}'
 
                     loss_count = 0
@@ -243,6 +236,13 @@ class RunGAN:
                     print('[vid:%d]' % video_ids[0])
                     print('WE: %s\nGT: %s' % (we, gt))
 
+                if epoch < 4:
+                    saving_schedule = saving_schedule_small
+                elif epoch < 8:
+                    saving_schedule = saving_schedule_high
+                else:
+                    saving_schedule = saving_schedule_high
+
                 if i in saving_schedule:
 
                     blockPrint()
@@ -253,6 +253,7 @@ class RunGAN:
                     results_list = []
                     for beam_size in beam_list:
                         self.model.update_beam_size(beam_size)
+                        # with torch.cuda.amp.autocast():
                         metrics, results = evaluate(self.model, self.args, self.test_loader, self.test_reference, multi_modal=self.use_graph)
                         metrics_list.append(metrics)
                         results_list.append(results)
@@ -280,18 +281,19 @@ class RunGAN:
         self.result_handler.end_round()
 
     def train_disc(self, r_caption, f_caption, optimizer_D, D, num_D, i, epoch, total_step,
-                   loss_count_D, wasserstein, att_mask=None, obj_psl=None, motion_psl=None, pos_tag=None):
+                   loss_count_D, wasserstein, att_mask=None, obj_psl=None, motion_psl=None, pos_tag=None, alpha_all=None):
         mean_iteration_D_loss = 0
         mean_wasserstein = 0
         for _ in range(num_D):
             optimizer_D.zero_grad()
             # discriminator output
+            # with torch.cuda.amp.autocast():
             if obj_psl is None:
                 r_logit = D(r_caption, att_mask)
                 f_logit = D(f_caption, att_mask)
             else:
-                r_logit = D(r_caption, pos_tag, obj_psl, motion_psl, att_mask)
-                f_logit = D(f_caption, pos_tag, obj_psl, motion_psl, att_mask)
+                r_logit = D(r_caption, pos_tag, obj_psl, motion_psl, att_mask, alpha_all)
+                f_logit = D(f_caption, pos_tag, obj_psl, motion_psl, att_mask, alpha_all)
 
             # calculate the gradient for penalty
             epsilon_gp = torch.rand(len(r_logit), 1, 1, device=self.device, requires_grad=True)
@@ -299,7 +301,7 @@ class RunGAN:
             if obj_psl is None:
                 mixed_logit = D(mixed_captions, att_mask)
             else:
-                mixed_logit = D(mixed_captions, pos_tag, obj_psl, motion_psl, att_mask)
+                mixed_logit = D(mixed_captions, pos_tag, obj_psl, motion_psl, att_mask, alpha_all)
 
             gradient_for_gp = torch.autograd.grad(
                 inputs=mixed_captions,
@@ -320,7 +322,10 @@ class RunGAN:
             # update model
             mean_iteration_D_loss += loss_D.item() / num_D
             mean_wasserstein += (r_loss.item() - f_loss.item()) / num_D
+            # scaler.scale(loss_D).backward()
             loss_D.backward(retain_graph=True)
+            # scaler.step(optimizer_D)
+            # scaler.update()
             optimizer_D.step()
         loss_count_D += mean_iteration_D_loss
         wasserstein += mean_wasserstein
@@ -342,16 +347,35 @@ class RunGAN:
         schedule = torch.linspace(0.0005, 0.003, steps=math.ceil(steps)).to(self.device)
         schedule = schedule.repeat_interleave(num_repeat)
 
-        # goal = 0.002
-        # mid_goal = (1.5/3.5) * 0.002
-        # a = np.linspace(0.0005, mid_goal, 4)
-        # b = np.linspace(mid_goal, goal, 9)
-        # c = np.linspace(goal, 0.0025, self.epoch_num-11)
-        # schedule = torch.from_numpy(np.concatenate((a, b[1:], c[1:]))).type(torch.float32).to(self.device)
         return schedule
 
     def train_generator(self, optim_G, batch_size):
         pass
+
+    def get_trainer_name(self, args):
+        self.ss_factor = args.ss_factor
+        base_name = f'{args.dataset}_{args.ss_factor}_GNN'
+        base_name += f'_{args.num_obj}_{args.num_proposals}'
+        print(base_name)
+
+        self.use_lang_gan = args.use_lang_gan
+        if args.use_lang_gan:
+            self.num_D_lang = args.num_D_lang
+            self.lambda_D_lang = args.lambda_D_lang
+            lang_name = f'_lang_{self.lambda_D_lang}_{self.num_D_lang}'
+            print(lang_name)
+            base_name += lang_name
+
+        self.use_visual_gan = args.use_visual_gan
+        if args.use_visual_gan:
+            self.num_D_visual = args.num_D_visual
+            self.lambda_D_visual = args.lambda_D_visual
+            visual_name = f'_visual_{self.lambda_D_visual}_{self.num_D_visual}'
+            print(visual_name)
+            base_name += visual_name
+
+        return base_name
+
 
     def test(self):
         reference = convert_data_to_coco_scorer_format(self.args.test_reference_txt_path)

@@ -27,17 +27,14 @@ if __name__ == "__main__":
                                        args.region_feature_h5_path, args.test_batch_size)
     test_reference = convert_data_to_coco_scorer_format(args.test_reference_txt_path)
 
-    dropout_list = [0.3]
-    glove_list = [False]
-    for dropout_i in dropout_list:
-        for glove_j in glove_list:
-            args.use_glove = glove_j
-            args.dropout = dropout_i
-            torch.manual_seed(12)
-            np.random.seed(12)
-            random.seed(12)
-            run = Run(args, vocab, device, train_loader=train_loader, test_loader=test_loader,
-                      test_reference=test_reference, is_debug=True)
-            run.train()
+    torch.manual_seed(12)
+    np.random.seed(12)
+    random.seed(12)
+    run = Run(args, vocab, device, train_loader=train_loader, test_loader=test_loader,
+                 test_reference=test_reference, is_debug=True)
+    # with torch.backends.cudnn.flags(enabled=False):
+    run.train()
+
+
 
 

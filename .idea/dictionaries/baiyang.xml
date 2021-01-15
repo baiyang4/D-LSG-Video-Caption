@@ -2,6 +2,7 @@
   <dictionary name="baiyang">
     <words>
       <w>bleu</w>
+      <w>scaler</w>
     </words>
   </dictionary>
 </component>

@@ -53,14 +53,13 @@ def enablePrint():
 
 
 class ResultHandler():
-    def __init__(self, model, args, is_debug=True):
+    def __init__(self, model, base_name, is_debug=True):
         super(ResultHandler, self).__init__()
         self.model_saving = model
-        model_type = 'lstm_att'
-        if args.use_graph:
-            model_type = 'GNN'
-        self.path = f'./models_saved/{args.dataset}/{model_type}/{getpass.getuser()}'
-        self.path_results = f'./results/{args.dataset}/{model_type}/{getpass.getuser()}'
+        if type(base_name) is not str:
+            base_name = 'GNN_base'
+        self.path = f'./models_saved/{base_name}/{getpass.getuser()}'
+        self.path_results = f'./results/{base_name}/{getpass.getuser()}'
 
         # self.path_temp = '{}/temp'.format(self.path)
         self.on = (is_debug is False)
