@@ -1,21 +1,20 @@
-# video_captioning
-普通参数：
-1. epoch_num: number of epochs for training
-2. save_per_epoch: 每个epoch做多少次evaluation
-3. train_batch_size
-4. test_batch_size
-5. use_glove: 使用glove pre-train 的 word embedding
+# Discriminative Latent Semantic Graph for Video Captioning
+This repository is the implementation of "Discriminative Latent Semantic Graph for Video Captioning" ACM MM 2021.
 
-GNN 参数：
-1. num_obj：每帧使用多少个 region features (1-36)
-2. num_proposals：number of proposals for both object and motion
 
-GAN 参数：
-1. use_visual_gan：使用conditional discriminator
-2. use_lang_gan： 使用 text discriminator
-3. num_D_lang: train 一次 G， train num_D_lang 次 text discriminator
-4. num_D_visual: train 一次 G， train num_D_visual 次 conditional discriminator
-5. num_D_switch: 训练 num_D_switch 次 G 和 D_lang, 再训练 num_D_switch 次 G 和 D_visual。if num_D_switch=0， 一起训练
+## Prepare (from [RMN](https://github.com/tgc1997/RMN))
+1. Create two empty folders, `data` and `results`
+2. Download visual and text features of [MSVD](https://rec.ustc.edu.cn/share/f9335ba0-ba07-11ea-9198-9366c81a1928) 
+and [MSR-VTT](https://rec.ustc.edu.cn/share/26685ac0-ba08-11ea-866f-6fc664dfaa3b), and put them in `data` folder.
+3. Download pre-trained models [msvd_model](https://rec.ustc.edu.cn/share/711b44e0-ba08-11ea-848d-b3f63a452975) 
+and [msr-vtt_model](https://rec.ustc.edu.cn/share/84993310-ba08-11ea-8055-0f1d6ef31a0d), and put them in `results` folder.
+4. download [evaluation tool](https://www.dropbox.com/sh/1h7jguu8z33a5a8/AAClLvIP-cxsiitvAVOPAG_ha?dl=0)
 
-训练：
-python train_debug.py    (+要调的参数)
+## train 
+
+## D-LSD loss
+![image](https://github.com/tgc1997/RMN/blob/master/models/framework.png)
+the optimal setting setting is no uploaded yet (forgot to save the optimal setting, and will update with the optimal setting soon.)
+
+## Acknowledgement
+Our code is based on https://github.com/tgc1997/RMN. Thanks for their great works!
