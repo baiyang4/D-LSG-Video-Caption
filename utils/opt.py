@@ -13,11 +13,12 @@ def parse_opt():
     # parser
     parser = argparse.ArgumentParser()
     # General settings
-    parser.add_argument('--dataset', type=str, default='msvd', help='choose from msvd|msr-vtt')
-    parser.add_argument('--epoch_num', type=int, default=40)
+    parser.add_argument('--local_rank', type=int, default=-1)
+    parser.add_argument('--dataset', type=str, default='msvd', help='choose from msr-vtt|msr-vtt')
+    parser.add_argument('--epoch_num', type=int, default=60)
     parser.add_argument('--save_per_epoch', type=int, default=8)
     parser.add_argument('--train_batch_size', type=int, default=128)
-    parser.add_argument('--test_batch_size', type=int, default=32)
+    parser.add_argument('--test_batch_size', type=int, default=128)
     parser.add_argument('--beam_size', type=int, default=5)
     parser.add_argument('--use_glove', type=bool, default=False)
 
@@ -26,13 +27,14 @@ def parse_opt():
     parser.add_argument('--dropout', type=float, default=0.3)
 
     parser.add_argument('--use_graph', type=bool, default=True)
+    parser.add_argument('--use_psl_loss', type=bool, default=False)
     parser.add_argument('--use_visual_gan', type=bool, default=True)
     parser.add_argument('--use_lang_gan', type=bool, default=False)
     parser.add_argument('--num_D_switch', type=int, default=3)
     parser.add_argument('--num_D_lang', type=int, default=5)
-    parser.add_argument('--lambda_D_lang', type=float, default=0.001)
+    parser.add_argument('--lambda_D_lang', type=float, default=0.006)
     parser.add_argument('--num_D_visual', type=int, default=5)
-    parser.add_argument('--lambda_D_visual', type=float, default=0.0001)
+    parser.add_argument('--lambda_D_visual', type=float, default=0.01)
 
     parser.add_argument('--frame_hidden_size', type=int, default=1000)
     parser.add_argument('--motion_hidden_size', type=int, default=1000)
@@ -41,7 +43,8 @@ def parse_opt():
     parser.add_argument('--region_projected_size', type=int, default=1024)
     parser.add_argument('--spatial_projected_size', type=int, default=300)
     parser.add_argument('--num_proposals', type=int, default=8)
-    parser.add_argument('--num_obj', type=int, default=12)
+    parser.add_argument('--num_obj', type=int, default=16)
+    parser.add_argument('--num_topk', type=int, default=3)
 
     parser.add_argument('--word_size', type=int, default=300)
     parser.add_argument('--gan_word_size', type=int, default=512)
@@ -49,11 +52,11 @@ def parse_opt():
     parser.add_argument('--att_size', type=int, default=1024)
     parser.add_argument('--time_size', type=int, default=300)
     parser.add_argument('--query_hidden_size', type=int, default=1024)
-    parser.add_argument('--decode_hidden_size', type=int, default=1024)
+    parser.add_argument('--decode_hidden_size', type=int, default=1536)
     parser.add_argument('--ss_factor', type=int, default=20)
 
     # Optimization settings
-    parser.add_argument('--learning_rate', type=float, default=0.00008)
+    parser.add_argument('--learning_rate', type=float, default=0.00016)
     parser.add_argument('--learning_rate_decay', type=int, default=1)
     parser.add_argument('--learning_rate_decay_every', type=int, default=10)
     parser.add_argument('--learning_rate_decay_rate', type=float, default=10)

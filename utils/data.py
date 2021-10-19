@@ -17,8 +17,10 @@ class V2TDataset(data.Dataset):
         with open(cap_pkl, 'rb') as f:
             # video ids: train ids for videos
             self.captions, self.pos_tags, self.lengths, self.video_ids = pickle.load(f)
+        f.close()
         h5 = h5py.File(frame_feature_h5, 'r')
         self.video_feats = h5[opt.feature_h5_feats]
+        # h5.close()
         if not os.path.exists(region_feature_h5):
             file_names = glob.glob('./data/MSR-VTT/msrvtt_region_feature*.h5')
             file_names.sort()
@@ -47,7 +49,7 @@ class V2TDataset(data.Dataset):
         print(h5.keys())
         self.region_feats = h5[opt.region_visual_feats]
         self.spatial_feats = h5[opt.region_spatial_feats]
-
+        # h5.close()
         print('hehe')
 
     def __getitem__(self, index):
@@ -110,28 +112,38 @@ def eval_collate_fn(data):
     return videos, regions, spatials, video_ids
 
 
-def get_train_loader(cap_pkl, frame_feature_h5, region_feature_h5, batch_size=100, shuffle=True, num_workers=4, pin_memory=True):
+def get_train_loader(cap_pkl, frame_feature_h5, region_feature_h5, batch_size=100, shuffle=True, num_workers=4, pin_memory=True, multi_gpu=False):
     if getpass.getuser() == 'yang':
         num_workers = 0
     print('num_workers = ', num_workers)
     v2t = V2TDataset(cap_pkl, frame_feature_h5, region_feature_h5)
+    data_sampler = None
+    if multi_gpu:
+        data_sampler = torch.utils.data.distributed.DistributedSampler(v2t)
     data_loader = torch.utils.data.DataLoader(dataset=v2t,
                                               batch_size=batch_size,
-                                              shuffle=shuffle,
+                                              shuffle=False if multi_gpu else True,
                                               num_workers=num_workers,
                                               collate_fn=train_collate_fn,
-                                              pin_memory=pin_memory)
-    return data_loader
+                                              pin_memory=pin_memory,
+                                              sampler=data_sampler
+                                              )
+    return data_loader, data_sampler
 
 
-def get_eval_loader(cap_pkl, frame_feature_h5, region_feature_h5, batch_size=100, shuffle=False, num_workers=0, pin_memory=False):
+def get_eval_loader(cap_pkl, frame_feature_h5, region_feature_h5, batch_size=100, shuffle=False, num_workers=0, pin_memory=False, multi_gpu=False):
     vd = VideoDataset(cap_pkl, frame_feature_h5, region_feature_h5)
+    data_sampler = None
+    if multi_gpu:
+        data_sampler = torch.utils.data.distributed.DistributedSampler(vd)
     data_loader = torch.utils.data.DataLoader(dataset=vd,
                                               batch_size=batch_size,
                                               shuffle=shuffle,
                                               num_workers=num_workers,
                                               collate_fn=eval_collate_fn,
-                                              pin_memory=pin_memory)
+                                              pin_memory=pin_memory,
+                                              sampler=data_sampler
+                                              )
     return data_loader
 
 

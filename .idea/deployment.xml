@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="trytry">
+  <component name="PublishConfigData" autoUpload="Always" serverName="root@172.18.18.157:35116">
     <serverData>
       <paths name="3090">
         <serverdata>
@@ -9,7 +9,6 @@
           </mappings>
           <excludedPaths>
             <excludedPath local="true" path="$PROJECT_DIR$/caption-eval" />
-            <excludedPath local="true" path="$PROJECT_DIR$/results" />
           </excludedPaths>
         </serverdata>
       </paths>
@@ -35,6 +34,27 @@
             <excludedPath path="/home/mist/video_captioning/caption-eval" />
             <excludedPath path="/home/mist/video_captioning/data" />
           </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="root@172.18.18.157:35116">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/baiy/video_captioning" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="root@172.18.18.157:45206">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/baiy/video_captioning" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="root@172.18.18.157:51933">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/baiy/video_captioning" local="$PROJECT_DIR$" />
+          </mappings>
         </serverdata>
       </paths>
       <paths name="yang@localhost:6000">

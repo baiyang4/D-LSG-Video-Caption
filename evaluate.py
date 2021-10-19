@@ -9,6 +9,7 @@ from cocoeval import COCOScorer, suppress_stdout_stderr
 from utils.opt import parse_opt
 from tqdm import tqdm
 import collections
+import time
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -52,29 +53,35 @@ def convert_prediction(prediction):
         prediction_json[str(key)] = [{u'video_id': str(key), u'caption': value}]
     return prediction_json
 
-def evaluate(net, opt, eval_loader, reference, multi_modal=False):
+def evaluate(net, opt, eval_loader, reference, multi_modal=False, multi_gpu=False):
 
     prediction_txt_path = opt.test_prediction_txt_path
-
+    alpha_all = []
     result = collections.OrderedDict()
+    start_time = time.time()
     for i, (frames, regions, spatials, video_ids) in tqdm(enumerate(eval_loader)):
         frames = frames.to(DEVICE)
         # regions = regions.to(DEVICE)
         # spatials = spatials.to(DEVICE)
         if multi_modal:
             regions = regions[:,:,:opt.num_obj,:].to(DEVICE)
-            outputs, _, _, _ = net(frames, regions, None)
+            outputs, _, _, alpha = net(frames, regions, None)
+            alpha_all.append(alpha)
         else:
             outputs = net(frames, None)
 
         for (tokens, vid) in zip(outputs, video_ids):
-            s = net.decoder.decode_tokens(tokens.data)
+            if multi_gpu:
+                s = net.module.decoder.decode_tokens(tokens.data)
+            else:
+                s = net.decoder.decode_tokens(tokens.data)
             result[vid] = s
 
     # with open(prediction_txt_path, 'w') as f:
     #     for vid, s in result.items():
     #         f.write('%d\t%s\n' % (vid, s))
-
+    end_time = time.time()
+    print('evaluate inference time:', end_time-start_time)
     prediction_json = convert_prediction(result)
 
     # compute scores
@@ -88,7 +95,43 @@ def evaluate(net, opt, eval_loader, reference, multi_modal=False):
         print('Sub Category Score in Spice:')
         for category, score in sub_category_score.items():
             print('%s: %.6f' % (category, score * 100))
-    return scores, result
+    return scores, result, alpha_all, end_time-start_time
+
+
+def gather_results(net, opt, eval_loader, multi_modal=False, multi_gpu=False):
+    result = collections.OrderedDict()
+    alpha_all = []
+    for i, (frames, regions, spatials, video_ids) in tqdm(enumerate(eval_loader)):
+        frames = frames.to(DEVICE)
+        regions = regions[:,:,:opt.num_obj,:].to(DEVICE)
+        outputs, _, _, alpha = net(frames, regions, None)
+
+        alpha_all.append(alpha)
+        for (tokens, vid) in zip(outputs, video_ids):
+            if multi_gpu:
+                s = net.module.decoder.decode_tokens(tokens.data)
+            else:
+                s = net.decoder.decode_tokens(tokens.data)
+            result[vid] = s
+    return result, alpha_all
+
+
+def evaluate_multi_gpu(result, reference):
+    start_time = time.time()
+    prediction_json = convert_prediction(result)
+    scorer = COCOScorer()
+    with suppress_stdout_stderr():
+        scores, sub_category_score = scorer.score(reference, prediction_json, prediction_json.keys())
+    for metric, score in scores.items():
+        print('%s: %.6f' % (metric, score * 100))
+
+    if sub_category_score is not None:
+        print('Sub Category Score in Spice:')
+        for category, score in sub_category_score.items():
+            print('%s: %.6f' % (category, score * 100))
+
+    end_time = time.time()
+    return scores, result, end_time - start_time
 
 
 if __name__ == '__main__':
