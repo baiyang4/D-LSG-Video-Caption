@@ -13,7 +13,7 @@ and [msr-vtt_model](https://rec.ustc.edu.cn/share/84993310-ba08-11ea-8055-0f1d6e
 ## train 
 
 ## D-LSD loss
-![image](https://github.com/tgc1997/RMN/blob/master/models/framework.png)
+![image](https://github.com/baiyang4/D-LSG-Video-Caption/blob/main/dlsg_loss.png)
 the optimal setting setting is no uploaded yet (forgot to save the optimal setting, and will update with the optimal setting soon.)
 
 ## Acknowledgement
