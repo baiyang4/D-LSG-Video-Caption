@@ -17,7 +17,8 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python \-m torch.distributed.launch \--nproc_per_no
 
 ## D-LSD loss
 ![image](https://github.com/baiyang4/D-LSG-Video-Caption/blob/main/dlsg_loss.png)
-the optimal setting setting is no uploaded yet (forgot to save the optimal setting, and will update with the optimal setting soon.)
+The figure above shows the training loss of the proposed D-LSG model. After the generator loss drops at the mid-stage of training, the caption loss and all evaluation metrics received better performance. This shows the effectiveness of using semantic information of a given sentence as discriminative information works on the video captioning task.
+The optimal setting setting is no uploaded yet (forgot to save the optimal setting, and will update with the optimal setting soon.)
 
 ## Acknowledgement
 Our code is based on https://github.com/tgc1997/RMN. Thanks for their great works!
