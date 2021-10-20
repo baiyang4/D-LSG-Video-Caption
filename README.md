@@ -2,10 +2,10 @@
 This repository is the implementation of "Discriminative Latent Semantic Graph for Video Captioning" ACM MM 2021.
 
 
-## Prepare (from [RMN](https://github.com/tgc1997/RMN))
+## Prepare 
 1. Create two empty folders, `data` and `caption-eval`
 2. Download visual and text features of [MSVD](https://rec.ustc.edu.cn/share/f9335ba0-ba07-11ea-9198-9366c81a1928) 
-and [MSR-VTT](https://rec.ustc.edu.cn/share/26685ac0-ba08-11ea-866f-6fc664dfaa3b), and put them in `data` folder.
+and [MSR-VTT](https://rec.ustc.edu.cn/share/26685ac0-ba08-11ea-866f-6fc664dfaa3b), and put them in `data` folder. (from [RMN](https://github.com/tgc1997/RMN))
 3. Download [evaluation tool](https://www.dropbox.com/sh/1h7jguu8z33a5a8/AAClLvIP-cxsiitvAVOPAG_ha?dl=0), and put them in `caption-eval` folder.
 
 ## Train 
